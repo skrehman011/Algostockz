@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "644063955323",
+    "project_id": "algostockz-bce19",
+    "storage_bucket": "algostockz-bce19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644063955323:android:99dc5be090bf03428395de",
+        "android_client_info": {
+          "package_name": "com.example.algostocks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644063955323-5a0nptkctp8h3cc0v4v7tu5ge2ntq4mh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDrlU7CMXml5HTfGJpcOx9rgvOyyimTqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644063955323-5a0nptkctp8h3cc0v4v7tu5ge2ntq4mh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
