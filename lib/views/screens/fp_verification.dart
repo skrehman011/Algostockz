@@ -1,6 +1,6 @@
-import 'package:algostocks/user_authentications/new_password.dart';
-import 'package:algostocks/user_authentications/signup1.dart';
-import 'package:algostocks/user_authentications/verification.dart';
+import 'package:algostocks/views/screens/new_password.dart';
+import 'package:algostocks/views/screens/signup1.dart';
+import 'package:algostocks/views/screens/verification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,7 +58,7 @@ class _FPVerificationScreenState extends State<FPVerificationScreen> {
                       Navigator.pop(context);
                     },
                     child: SvgPicture.asset(
-                      'assets/back_button.svg',
+                      'assets/icons/back_button.svg',
                       width: backButtonSize,
                       height: backButtonSize,
                     ),
@@ -70,7 +70,7 @@ class _FPVerificationScreenState extends State<FPVerificationScreen> {
                   top: logoTopMargin,
                   left: (screenWidth - logoSize) / 2,
                   child: SvgPicture.asset(
-                    'assets/logo.svg',
+                    'assets/icons/logo.svg',
                     width: logoSize,
                     height: 80.84,
                   ),

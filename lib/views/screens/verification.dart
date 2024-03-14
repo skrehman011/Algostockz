@@ -1,43 +1,37 @@
-import 'package:algostocks/user_authentications/fp_verification.dart';
-import 'package:algostocks/user_authentications/signup1.dart';
-import 'package:algostocks/user_authentications/verification.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:algostocks/views/screens/login.dart';
+import 'package:algostocks/views/screens/new_password.dart';
+import 'package:algostocks/views/screens/signup1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../firebase_options.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class VerificationScreen extends StatefulWidget {
   @override
-  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+  _VerificationScreenState createState() => _VerificationScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  TextEditingController loginIdController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-
-  Future<void> initializeFirebase() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
+class _VerificationScreenState extends State<VerificationScreen> {
+  List<int> verificationDigits = [3, 9, 6, 1]; // List of verification digits
+  List<TextEditingController> digitControllers = List.generate(4, (index) => TextEditingController(text: ''),
+  );
 
   @override
-  void initState() {
-    super.initState();
-    initializeFirebase();
+  void dispose() {
+    for (var controller in digitControllers) {
+      controller.dispose();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Prevent the keyboard from resizing the layout
-
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xFF170044), // Background color #170044
+          color: Color(0xFF170044),
         ),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -47,10 +41,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             double menuBarSize = 30;
             double spacingFromTop = 73;
             double spacingFromSide = 12;
-            double logoSize = 155; // Size for the logo width
-            double logoTopMargin = 30 + spacingFromTop; // Margin from the top including spacingFromTop
-            double rectangleTopMargin = logoTopMargin + 70; // Positioning 70 pixels below the logo
-            double textBottomMargin = 20; // Distance from bottom
+            double logoSize = 155;
+            double logoTopMargin = 30 + spacingFromTop;
+            double rectangleTopMargin = logoTopMargin + 70;
+            double textBottomMargin = 20;
             double placeholderWidth = 320;
 
             return Stack(
@@ -64,7 +58,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       Navigator.pop(context);
                     },
                     child: SvgPicture.asset(
-                      'assets/back_button.svg', // Replace with the path to your back button SVG
+                      'assets/icons/back_button.svg',
                       width: backButtonSize,
                       height: backButtonSize,
                     ),
@@ -74,9 +68,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 // Logo
                 Positioned(
                   top: logoTopMargin,
-                  left: (screenWidth - logoSize) / 2, // Center the logo horizontally
+                  left: (screenWidth - logoSize) / 2,
                   child: SvgPicture.asset(
-                    'assets/logo.svg', // Replace with the path to your logo SVG
+                    'assets/icons/logo.svg',
                     width: logoSize,
                     height: 80.84,
                   ),
@@ -85,7 +79,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 // Orange Rectangle
                 Positioned(
                   top: rectangleTopMargin + 70,
-                  left: (screenWidth - placeholderWidth) / 2, // Centering the orange rectangle horizontally
+                  left: (screenWidth - placeholderWidth) / 2,
                   child: Container(
                     width: placeholderWidth,
                     height: 50,
@@ -100,7 +94,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        'Forgot Password',
+                        'Verification',
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                             color: Colors.white,
@@ -115,11 +109,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                 // Green Rectangle
                 Positioned(
-                  top: rectangleTopMargin + 70 + 50, // Positioning right after the orange rectangle
-                  left: (screenWidth - placeholderWidth) / 2, // Centering the green rectangle horizontally
+                  top: rectangleTopMargin + 70 + 50,
+                  left: (screenWidth - placeholderWidth) / 2,
                   child: Container(
                     width: placeholderWidth,
-                    height: 380, // Height of the green rectangle
+                    height: 380,
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(124, 65, 251, 0.2),
                       borderRadius: BorderRadius.only(
@@ -130,7 +124,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                       border: Border.all(
                         color: Color(0xFF7D41FB),
-                        width: .5, // Stroke width
+                        width: .5,
                       ),
                     ),
                     child: Column(
@@ -138,122 +132,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       children: [
                         SizedBox(height: 40),
 
-                        // Login ID Input Placeholder
-                        Padding(
-                          padding: EdgeInsets.only(left: 50),
-                          child: Text(
-                            'Login ID',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Center(
-                          child: Container(
-                            width: 220,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: TextField(
-                                controller: loginIdController,
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: 'Enter login ID',
-                                  hintStyle: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      color: Colors.black.withOpacity(0.5),
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(height: 26),
-
-                        // Password Input Placeholder
-                        Padding(
-                          padding: EdgeInsets.only(left: 50),
-                          child: Text(
-                            'Enter Email', // Add the "Enter Email" text
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(height: 5),
-                        Center(
-                          child: Container(
-                            width: 220,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: TextField(
-                                controller: emailController,
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: 'example@email.com',
-                                  hintStyle: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      color: Colors.black.withOpacity(0.5),
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(height: 10),
+                        // Verification Code Description
                         Padding(
                           padding: EdgeInsets.only(left: 50, right: 50),
                           child: Text(
-                            'We’ll send an email with instruction to reset your password',
+                            'We have sent a 4-digit code to your phone for verification',
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: Colors.white,
@@ -264,14 +147,128 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           ),
                         ),
 
-
                         SizedBox(height: 40),
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 50, right: 50),
+                            child: Text(
+                              'Enter Verification Code',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(verificationDigits.length, (index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  width: 46,
+                                  height: 46,
+                                  margin: EdgeInsets.symmetric(horizontal: 6),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: Colors.black,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller: digitControllers[index],
+                                      textAlign: TextAlign.center,
+                                      keyboardType: TextInputType.number,
+                                      maxLength: 1,
+                                      style: GoogleFonts.inter(
+                                        textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                      decoration: InputDecoration(
+                                        hintText: '${verificationDigits[index]}', // Placeholder number
+                                        hintStyle: TextStyle(
+                                          color: Colors.black.withOpacity(0.2),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        counterText: '',
+                                        border: InputBorder.none,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                        ),
+
+                        SizedBox(height: 16),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "If you didn’t receive a code!",
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            InkWell(
+                              onTap: () {
+                                // Handle the resend code action here
+                              },
+                              child: Text(
+                                "Resend",
+                                style: GoogleFonts.poppins(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFF7D41FB),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30),
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 50, right: 50),
+                            child: Text(
+                              '15',
+                              style: GoogleFonts.josefinSans(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 18),
                         Center(
                           child: InkWell(
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => FPVerificationScreen()),
+                                MaterialPageRoute(builder: (context) => LoginScreen()),
                               );
                             },
                             child: Container(
@@ -296,12 +293,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             ),
                           ),
                         ),
+
+
                       ],
                     ),
                   ),
                 ),
-
-
                 Positioned(
                   bottom: textBottomMargin+24,
                   left: 0,
@@ -319,6 +316,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ),
                 ),
+
 
                 Positioned(
                   bottom: textBottomMargin,

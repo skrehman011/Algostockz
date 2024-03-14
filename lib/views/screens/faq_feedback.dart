@@ -1,16 +1,17 @@
-import 'package:algostocks/user_authentications/signup1.dart';
-import 'package:algostocks/user_authentications/verification.dart';
+import 'package:algostocks/views/screens/screen_home_page.dart';
+import 'package:algostocks/views/screens/signup1.dart';
+import 'package:algostocks/views/screens/verification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../firebase_options.dart';
-import '../home_screen.dart';
+import '../../firebase_options.dart';
+import 'home_screen.dart';
 import 'forgot_password.dart';
 
-class LoginScreen extends StatefulWidget {
+class FaqFeedback extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _FaqFeedbackState createState() => _FaqFeedbackState();
 }
 class MenuPopUp extends StatelessWidget {
   @override
@@ -230,11 +231,11 @@ class ShortBlueColorBar extends StatelessWidget {
     ];
 
     List<String> rectangleImages = [
-      'assets/airdrop.png',
-      'assets/whatsapp.png',
-      'assets/message.png',
-      'assets/snapchat.png',
-      'assets/mail.png',
+      'assets/images/airdrop.png',
+      'assets/images/whatsapp.png',
+      'assets/images/message.png',
+      'assets/images/snapchat.png',
+      'assets/images/mail.png',
     ];
 
     List<void Function()> rectangleCallbacks = [
@@ -286,7 +287,7 @@ class ShortBlueColorBar extends StatelessWidget {
                   ),
                   child: Center(
                     child: Image.asset(
-                      'assets/apple.png',
+                      'assets/images/apple.png',
                       width: 40,
                       height: 40,
                     ),
@@ -387,7 +388,7 @@ class ShortBlueColorBar extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(right: 20),
                       child: Image.asset(
-                        'assets/copy_link.png',
+                        'assets/images/copy_link.png',
                         width: 20,
                         height: 20,
                       ),
@@ -428,7 +429,7 @@ class ShortBlueColorBar extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(right: 20),
                       child: Image.asset(
-                        'assets/copy_icloud_link.png',
+                        'assets/images/copy_icloud_link.png',
                         width: 20,
                         height: 20,
                       ),
@@ -482,7 +483,7 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
     );
   }
 }
-class _LoginScreenState extends State<LoginScreen> {
+class _FaqFeedbackState extends State<FaqFeedback> {
   TextEditingController loginIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isPopupOpen = false;
@@ -552,7 +553,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pop(context);
                       },
                       child: SvgPicture.asset(
-                        'assets/back_button.svg',
+                        'assets/icons/back_button.svg',
                         width: backButtonSize,
                         height: backButtonSize,
                       ),
@@ -568,7 +569,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         // You can implement your desired menu behavior
                       },
                       child: SvgPicture.asset(
-                        'assets/menu_bar.svg',
+                        'assets/icons/menu_bar.svg',
                         width: menuBarSize,
                         height: menuBarSize,
                       ),
@@ -578,7 +579,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     top: logoTopMargin,
                     left: (screenWidth - logoSize) / 2, // Center the logo horizontally
                     child: SvgPicture.asset(
-                      'assets/logo.svg', // Replace with the path to your logo SVG
+                      'assets/icons/logo.svg', // Replace with the path to your logo SVG
                       width: logoSize,
                       height: 80.84,
                     ),
@@ -601,7 +602,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          'Login',
+                          'Feedback / Testimonials',
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                               color: Colors.white,
@@ -643,7 +644,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 50),
                             child: Text(
-                              'Login ID',
+                              'Name',
                               style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
                                   color: Colors.white,
@@ -678,7 +679,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   decoration: InputDecoration(
-                                    hintText: 'Enter login ID',
+                                    hintText: 'Enter name',
                                     hintStyle: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         color: Colors.black.withOpacity(0.5),
@@ -699,7 +700,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 50),
                             child: Text(
-                              'Password',
+                              'Testimonials',
                               style: GoogleFonts.poppins(
                                 textStyle: TextStyle(
                                   color: Colors.white,
@@ -713,7 +714,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Center(
                             child: Container(
                               width: 220,
-                              height: 50,
+                              // height: 150,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
@@ -724,9 +725,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: TextField(
-                                  controller: passwordController,
-                                  obscureText: true,
+                                child: TextFormField(
+                                  maxLines: 8,
+
                                   style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                       color: Colors.black,
@@ -735,7 +736,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                   decoration: InputDecoration(
-                                    hintText: 'Password',
+                                    // hintText: 'Password',
+                                    label: Center(child: Text("Enter Testimonials")),
                                     hintStyle: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         color: Colors.black.withOpacity(0.5),
@@ -752,68 +754,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
 
-                          SizedBox(height: 10),
-
-                          // "Forgot Password?" Link Placeholder
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 50),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
-                                  );                              },
-                                child: Text(
-                                  'Forgot Password?',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      color: Color(0xFF7D41FB),
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
 
 
-                          SizedBox(height: 14), // Distance between text and checkbox
-                          Row(
-                            children: [
-                              CustomCheckbox(
-                                value: isRememberChecked,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    isRememberChecked = newValue;
-                                  });
-                                },
-                              ),
-                              SizedBox(width: 10), // Distance between checkbox and text
-                              Text(
-                                'Remember me',
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
 
-                          SizedBox(height: 26),
 
-                          // Login Button Placeholder
                           Center(
                             child: InkWell(
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => HomeScreen()), // Change to HomeScreen
+                                  MaterialPageRoute(builder: (context) => ScreenHomePage()), // Change to HomeScreen
                                 );
                               },
                               child: Container(
@@ -825,7 +775,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Login',
+                                    'Submit',
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         color: Colors.white,
@@ -844,6 +794,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   // "Do not have an account?" Text
+                  Text("Need Help?",
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+
+                  ),
                   Positioned(
                     bottom: textBottomMargin,
                     left: 0,
@@ -852,7 +812,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Do not have an account?',
+                          'Contact our',
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                               color: Colors.white,
@@ -870,7 +830,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           },
                           child: Text(
-                            'Sign up',
+                            'Customer Care Center',
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: Color(0xFF7D41FB),
@@ -1027,47 +987,47 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   if (isSettingBarVisible)
-                      Stack(
-                        children: [
-                          Positioned.fill(
+                    Stack(
+                      children: [
+                        Positioned.fill(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isSettingBarVisible = false; // Hide the blue color bar
+                              });
+                            },
+                            child: Container(
+                              color: Colors.black.withOpacity(0.9), // Semi-transparent overlay
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          top: 120, // Start below the top 160 pixels
+                          child: BlueColorBar(),
+                        ),
+
+                        if (isLogoutPopupVisible)
+                          Center(
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  isSettingBarVisible = false; // Hide the blue color bar
+                                  isLogoutPopupVisible = false; // Close the logout pop-up
                                 });
                               },
                               child: Container(
-                                color: Colors.black.withOpacity(0.9), // Semi-transparent overlay
+                                color: Colors.black.withOpacity(0.7), // Semi-transparent overlay
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            top: 120, // Start below the top 160 pixels
-                            child: BlueColorBar(),
-                          ),
 
-                          if (isLogoutPopupVisible)
-                            Center(
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isLogoutPopupVisible = false; // Close the logout pop-up
-                                  });
-                                },
-                                child: Container(
-                                  color: Colors.black.withOpacity(0.7), // Semi-transparent overlay
-                                ),
-                              ),
-                            ),
+                        if (isLogoutPopupVisible)
+                          LogoutPopup(),
 
-                          if (isLogoutPopupVisible)
-                            LogoutPopup(),
-
-                        ],
-                      ),
+                      ],
+                    ),
                   if (isContactUsBarVisible)
                     Stack(
                       children: [

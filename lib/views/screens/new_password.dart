@@ -1,50 +1,82 @@
-import 'package:algostocks/user_authentications/verification.dart';
+import 'package:algostocks/views/screens/fp_verification.dart';
+import 'package:algostocks/views/screens/login.dart';
+import 'package:algostocks/views/screens/signup1.dart';
+import 'package:algostocks/views/screens/verification.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'login.dart';
+import '../../firebase_options.dart';
 
-class Signup2Screen extends StatefulWidget {
+class NewPasswordScreen extends StatefulWidget {
   @override
-  _Signup2ScreenState createState() => _Signup2ScreenState();
+  _NewPasswordScreenState createState() => _NewPasswordScreenState();
 }
-class MenuPopUp extends StatelessWidget {
+
+class CustomCheckbox extends StatefulWidget {
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  CustomCheckbox({required this.value, required this.onChanged});
+
+  @override
+  _CustomCheckboxState createState() => _CustomCheckboxState();
+}
+
+class _CustomCheckboxState extends State<CustomCheckbox> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      height: 160,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Center(
-        child: Text(
-          'Popup Content',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        widget.onChanged(!widget.value);
+      },
+      child: Container(
+        width: 18,
+        height: 18,
+        margin: EdgeInsets.only(left: 50),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(
+            color: Colors.black,
+            width: 1,
           ),
+          color: widget.value ? Color(0xFF7D41FB) : Colors.white,
         ),
+        child: widget.value
+            ? Icon(
+          Icons.check,
+          size: 12,
+          color: Colors.white,
+        )
+            : null,
       ),
     );
   }
 }
 
-class _Signup2ScreenState extends State<Signup2Screen> {
+class _NewPasswordScreenState extends State<NewPasswordScreen> {
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController ConfirmNewPasswordController = TextEditingController();
+  bool isRememberChecked = false;
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  bool isPopupOpen = false;
-  double overlayOpacity = 0.0; // Add this variable
 
+  Future<void> initializeFirebase() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeFirebase();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // Prevent the keyboard from resizing the layout
+
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -67,6 +99,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
 
             return Stack(
               children: [
+                // Back Button
                 Positioned(
                   top: spacingFromTop,
                   left: spacingFromSide,
@@ -75,35 +108,25 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                       Navigator.pop(context);
                     },
                     child: SvgPicture.asset(
-                      'assets/back_button.svg', // Replace with the path to your back button SVG
+                      'assets/icons/back_button.svg', // Replace with the path to your back button SVG
                       width: backButtonSize,
                       height: backButtonSize,
                     ),
                   ),
                 ),
-                Positioned(
-                  top: spacingFromTop,
-                  right: spacingFromSide,
-                  child: InkWell(
-                    onTap: () {
-                      // Handle the tap on the menu button here
-                    },
-                    child: SvgPicture.asset(
-                      'assets/menu_bar.svg', // Replace with the path to your menu bar SVG
-                      width: menuBarSize,
-                      height: menuBarSize,
-                    ),
-                  ),
-                ),
+
+                // Logo
                 Positioned(
                   top: logoTopMargin,
                   left: (screenWidth - logoSize) / 2, // Center the logo horizontally
                   child: SvgPicture.asset(
-                    'assets/logo.svg', // Replace with the path to your logo SVG
+                    'assets/icons/logo.svg', // Replace with the path to your logo SVG
                     width: logoSize,
                     height: 80.84,
                   ),
                 ),
+
+                // Orange Rectangle
                 Positioned(
                   top: rectangleTopMargin + 70,
                   left: (screenWidth - placeholderWidth) / 2, // Centering the orange rectangle horizontally
@@ -121,7 +144,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                     ),
                     child: Center(
                       child: Text(
-                        'Sign up', // Add the "Sign up" text
+                        'New Password',
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                             color: Colors.white,
@@ -133,12 +156,14 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                     ),
                   ),
                 ),
+
+                // Green Rectangle
                 Positioned(
                   top: rectangleTopMargin + 70 + 50, // Positioning right after the orange rectangle
                   left: (screenWidth - placeholderWidth) / 2, // Centering the green rectangle horizontally
                   child: Container(
                     width: placeholderWidth,
-                    height: 440, // Height of the green rectangle
+                    height: 380, // Height of the green rectangle
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(124, 65, 251, 0.2),
                       borderRadius: BorderRadius.only(
@@ -156,64 +181,12 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 40),
-                        Padding(
-                          padding: EdgeInsets.only(left: 50),
-                          child: Text(
-                            'Enter Email', // Add the "Enter Email" text
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Center(
-                          child: Container(
-                            width: 220,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: TextField(
-                                controller: emailController,
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: 'example@email.com',
-                                  hintStyle: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      color: Colors.black.withOpacity(0.5),
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
 
-                        SizedBox(height: 26),
+                        // Login ID Input Placeholder
                         Padding(
                           padding: EdgeInsets.only(left: 50),
                           child: Text(
-                            'Create Password',
+                            'Enetr New Password',
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: Colors.white,
@@ -239,7 +212,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: passwordController,
+                                controller: newPasswordController,
                                 obscureText: true,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
@@ -249,7 +222,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                                   ),
                                 ),
                                 decoration: InputDecoration(
-                                  hintText: '8 characters at least',
+                                  hintText: '8 characters a least',
                                   hintStyle: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                       color: Colors.black.withOpacity(0.5),
@@ -264,10 +237,12 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                           ),
                         ),
                         SizedBox(height: 26),
+
+                        // Password Input Placeholder
                         Padding(
                           padding: EdgeInsets.only(left: 50),
                           child: Text(
-                            'Confirm Password',
+                            'Confirm Password', // Add the "Enter Email" text
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: Colors.white,
@@ -277,6 +252,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             ),
                           ),
                         ),
+
                         SizedBox(height: 5),
                         Center(
                           child: Container(
@@ -293,7 +269,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: confirmPasswordController,
+                                controller: ConfirmNewPasswordController,
                                 obscureText: true,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
@@ -317,13 +293,39 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 40), // Add some spacing below the last placeholder
+                        SizedBox(height: 24),
+                        Row(
+                          children: [
+                            CustomCheckbox(
+                              value: isRememberChecked,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  isRememberChecked = newValue;
+                                });
+                              },
+                            ),
+                            SizedBox(width: 10), // Distance between checkbox and text
+                            Text(
+                              'Remember me',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+
+                        SizedBox(height: 40),
                         Center(
                           child: InkWell(
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => VerificationScreen()),
+                                MaterialPageRoute(builder: (context) => LoginScreen()),
                               );
                             },
                             child: Container(
@@ -335,7 +337,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Confirm',
+                                  'Submit',
                                   style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                       color: Colors.white,
@@ -348,11 +350,30 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             ),
                           ),
                         ),
-                        // Rest of your UI elements...
                       ],
                     ),
                   ),
                 ),
+
+
+                Positioned(
+                  bottom: textBottomMargin+24,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Text(
+                      'Need Help?',
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
                 Positioned(
                   bottom: textBottomMargin,
                   left: 0,
@@ -361,7 +382,7 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already a user?',
+                        'Contact our',
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                             color: Colors.white,
@@ -375,17 +396,17 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LoginScreen()), // Replace LoginScreen() with your actual LoginScreen widget
+                            MaterialPageRoute(builder: (context) => SignupScreen()), // Replace LoginScreen() with your actual LoginScreen widget
                           );
                         },
                         child: Text(
-                          'Login',
+                          'Customer Care Center',
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                               color: Color(0xFF7D41FB),
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              height: 1,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
@@ -393,137 +414,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                     ],
                   ),
                 ),
-                // Semi-transparent overlay when popup is open
-                if (isPopupOpen)
-                  Positioned.fill(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isPopupOpen = false;
-                        });
-                      },
-                      child: Container(
-                        color: Colors.black.withOpacity(0.7), // Semi-transparent overlay
-                      ),
-                    ),
-                  ),
 
-                // Popup widget (replacing the menu bar)
-                if (isPopupOpen)
-                  Positioned(
-                    top: spacingFromTop,
-                    right: spacingFromSide,
-                    child: Container(
-                      width: 140,
-                      height: 160,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF170044), // Background color #170044
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center, // Center vertically
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              // Handle Share option
-                            },
-                            child: Center(
-                              child: Container(
-                                padding: EdgeInsets.only(top: 5), // Adjusted padding
-                                child: Text(
-                                  'Share',
-                                  style: GoogleFonts.josefinSans(
-                                    textStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.white.withOpacity(0.3), // Line color
-                            thickness: 1,
-                            indent: 20, // Adjust the indent as needed
-                            endIndent: 20, // Adjust the endIndent as needed
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // Handle Setting option
-                            },
-                            child: Center(
-                              child: Container(
-                                padding: EdgeInsets.only(top: 5), // Adjusted padding
-                                child: Text(
-                                  'Setting',
-                                  style: GoogleFonts.josefinSans(
-                                    textStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.white.withOpacity(0.3), // Line color
-                            thickness: 1,
-                            indent: 20, // Adjust the indent as needed
-                            endIndent: 20, // Adjust the endIndent as needed
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // Handle Contact Us option
-                            },
-                            child: Center(
-                              child: Container(
-                                padding: EdgeInsets.only(top: 5), // Adjusted padding
-                                child: Text(
-                                  'Contact Us',
-                                  style: GoogleFonts.josefinSans(
-                                    textStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.white.withOpacity(0.3), // Line color
-                            thickness: 1,
-                            indent: 20, // Adjust the indent as needed
-                            endIndent: 20, // Adjust the endIndent as needed
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                else
-                  Positioned(
-                    top: spacingFromTop,
-                    right: spacingFromSide,
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          isPopupOpen = true;
-                        });
-                      },
-                      child: SvgPicture.asset(
-                        'assets/menu_bar.svg',
-                        width: menuBarSize,
-                        height: menuBarSize,
-                      ),
-                    ),
-                  ),              ],
+              ],
             );
           },
         ),
