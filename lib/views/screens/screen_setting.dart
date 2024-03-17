@@ -39,7 +39,7 @@ class ScreenSetting extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: (){
-              Get.to(ScreenTestimonials());
+              Get.to(ScreenTestimonial());
             },
             child: Align(
               alignment: Alignment.center,

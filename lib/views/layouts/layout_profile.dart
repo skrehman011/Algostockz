@@ -1,9 +1,11 @@
+import 'package:algostocks/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LayoutProfile extends StatelessWidget {
-  const LayoutProfile({Key? key}) : super(key: key);
 
+
+  final UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     // CheckApiController controller=Get.put(CheckApiController());
@@ -144,6 +146,13 @@ class LayoutProfile extends StatelessWidget {
             width: Get.width*0.80,
             child: ElevatedButton(
                 onPressed: () {
+                  userController.fetchUserAccounts().then((_) {
+                    // Print the response after fetching user accounts
+                    print(userController.userAccounts);
+                  }).catchError((error) {
+                    // Handle error if any
+                    print('Error fetching user accounts: $error');
+                  });
                   // controller.fetchTestimonial(
                   //
                   //

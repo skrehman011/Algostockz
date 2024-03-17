@@ -82,7 +82,7 @@ class LayoutHome extends StatelessWidget {
                   },context),
                   SizedBox(width: 20),
                   _buildItemWithIconAndText("ref", 'Referrals', () {
-                    Get.to( ScreenTestimonials());
+                    Get.to(ScreenTestimonial());
                   },context),
                 ],
               ),

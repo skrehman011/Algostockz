@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ScreenTestimonials extends StatelessWidget {
-  const ScreenTestimonials({Key? key}) : super(key: key);
+import '../../controller/testimonial_controller.dart';
+
+class ScreenTestimonial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TestimonialController testimonialController = Get.put(TestimonialController());
+
     return Scaffold(
         backgroundColor: Color(0xFF170044),
         appBar: AppBar(
@@ -58,6 +61,9 @@ class ScreenTestimonials extends StatelessWidget {
                             color: Colors.green,
                           ),
                         )).marginOnly(top: 5, right: 10),
+                    ElevatedButton(onPressed: (){
+                      testimonialController.fetchTestimonial();
+                    }, child: Text('Read More')),
                   ],
                 ),
               ).marginOnly(top: 10);

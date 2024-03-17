@@ -18,7 +18,7 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
 
   @override
   Widget build(BuildContext context) {
-    final PerformanceController _performanceController = Get.put(PerformanceController());
+    final PerformanceController performanceController = Get.put(PerformanceController());
 
     return Scaffold(
       backgroundColor: Color(0xFF170044),
@@ -162,12 +162,25 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
                   ],
                 ),
               ),
+        // Obx(() {
+        //   return WidgetDashContainer(
+        //     texts: [
+        //       performanceController.ticker.value,
+        //       '\$${performanceController.price.value.toStringAsFixed(2)}',
+        //       performanceController.signal.value,
+        //       'Target: \$${performanceController.target.value.toStringAsFixed(2)}'
+        //     ],
+        //     color: Colors.blueGrey,
+        //   ).marginOnly(top: 5);
+        // },),
+
+
               WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh"],
+                texts: ["${performanceController.ticker}", "\$${performanceController.price}", "${performanceController.signal}", "${performanceController.target}"],
                 color: Colors.blueGrey,
-              ).marginOnly(top: 5),
+              ),
               WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh"],
+                texts: ["${performanceController.ticker}", "\$${performanceController.price}", "${performanceController.signal}", "${performanceController.target}"],
                 color: Colors.blueGrey,
               ),
               WidgetDashContainer(
@@ -184,8 +197,7 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    _performanceController.fetchData();
-                    Get.to(ScreenPerformance2());
+                    performanceController.fetchPerformanceData();
                   },
                   child: Icon(
                     Icons.arrow_back_ios_new_sharp,

@@ -6,12 +6,12 @@ import 'package:http/http.dart' as http;
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 class TestimonialController extends GetxController{
 
-  String _testimonial = '';
-  bool _loading = false;
-
-  Future<void> _fetchTestimonial() async {
+  String message = '';
+  bool loading = false;
+  String name = '';
+  Future<void> fetchTestimonial() async {
     // setState(() {
-      _loading = true;
+      loading = true;
     // });
 
     final url =
@@ -20,14 +20,20 @@ class TestimonialController extends GetxController{
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      // setState(() {
-        _testimonial = jsonResponse['testimonial'];
-        _loading = false;
-      // });
+      print(jsonResponse);
+      final jsonData = jsonDecode(response.body);
+      if (jsonData is List && jsonData.isNotEmpty) {
+        final data = jsonData[0];
+        name = data['ticker'];
+        message = data['price'];
+        loading = false;
+        update();
+      }
+
     } else {
       // setState(() {
-        _loading = false;
-        _testimonial = 'Failed to fetch testimonial.';
+        loading = false;
+        message = 'Failed to fetch testimonial.';
       // });
     }
   }

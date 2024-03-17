@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../controller/faqs_controller.dart';
 import 'faq_feedback.dart';
 
 class ScreenFaq extends StatelessWidget {
-  const ScreenFaq({Key? key}) : super(key: key);
+  final FaqsController faqsController = Get.put(FaqsController());
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +96,18 @@ class ScreenFaq extends StatelessWidget {
                 ],
                 textColor: Color(0xFF0BFFB7),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await faqsController.fetchFAQs();
+                  } catch (e) {
+                    // Handle errors
+                    print('Error: $e');
+                  }
+                },
+                child: Text("Submit Feedback"),
+              ),
+
             ],
           ).marginAll(15),
         ),
