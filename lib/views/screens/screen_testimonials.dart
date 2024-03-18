@@ -7,8 +7,8 @@ class ScreenTestimonial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TestimonialController testimonialController = Get.put(TestimonialController());
-
+    TestimonialController testimonialController = Get.put(
+        TestimonialController());
     return Scaffold(
         backgroundColor: Color(0xFF170044),
         appBar: AppBar(
@@ -44,26 +44,45 @@ class ScreenTestimonial extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "I've been using this stocks alert app for a while now, and it has completely changed the way I manage my investments. The real-time alerts keep me updated on market movements, and the app's intuitive interface makes it easy to navigate and track my favorite stocks. Highly recommended!",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Colors.white),
-                    ),
+                    Obx(() {
+                      return ListView.builder(
+                        itemBuilder: (BuildContext context, int index) {
+                          return Text(
+                            testimonialController.message as String,
+
+                            // "I've been using this stocks alert app for a while now, and it has completely changed the way I manage my investments. The real-time alerts keep me updated on market movements, and the app's intuitive interface makes it easy to navigate and track my favorite stocks. Highly recommended!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: Colors.white),
+                          );
+                        },
+                        // child: Text(
+                        //   testimonialController.message as String,
+                        //
+                        //   // "I've been using this stocks alert app for a while now, and it has completely changed the way I manage my investments. The real-time alerts keep me updated on market movements, and the app's intuitive interface makes it easy to navigate and track my favorite stocks. Highly recommended!",
+                        //   style: TextStyle(
+                        //       fontWeight: FontWeight.w400,
+                        //       fontSize: 12,
+                        //       color: Colors.white),
+                        // ),
+                      );
+                    }),
                     Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          'Suresh',
+                          testimonialController.name as String,
+
+                          // 'Suresh',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Colors.green,
                           ),
                         )).marginOnly(top: 5, right: 10),
-                    ElevatedButton(onPressed: (){
-                      testimonialController.fetchTestimonial();
-                    }, child: Text('Read More')),
+                    // ElevatedButton(onPressed: (){
+                    //   testimonialController.fetchTestimonial();
+                    // }, child: Text('Read More')),
                   ],
                 ),
               ).marginOnly(top: 10);

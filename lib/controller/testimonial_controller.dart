@@ -1,14 +1,17 @@
-
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
+import '../model/model_testimonial.dart';
 class TestimonialController extends GetxController{
 
-  String message = '';
+  RxString message = ''.obs;
   bool loading = false;
-  String name = '';
+  RxString name = ''.obs;
+  RxList<ModelTestimonial> modelTestimonial = <ModelTestimonial>[].obs;
+
   Future<void> fetchTestimonial() async {
     // setState(() {
       loading = true;
@@ -18,23 +21,19 @@ class TestimonialController extends GetxController{
     "https://algostockz.onrender.com/api/get_testimonial/email:admin@gmail.com/api_key:6be513c236a047ce90231ed122c4d988/";
     final response = await http.get(Uri.parse(url));
 
-    if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
-      print(jsonResponse);
-      final jsonData = jsonDecode(response.body);
-      if (jsonData is List && jsonData.isNotEmpty) {
-        final data = jsonData[0];
-        name = data['ticker'];
-        message = data['price'];
-        loading = false;
-        update();
+      try {
+        final response = await http.get(url as Uri);
+        if (response.statusCode == 200) {
+          final jsonData = jsonDecode(response.body) as List<dynamic>;
+          update();
+        }
+      } catch (error) {
+        print('Error: $error');
       }
-
-    } else {
-      // setState(() {
-        loading = false;
-        message = 'Failed to fetch testimonial.';
-      // });
-    }
+  }
+  @override
+  void onInit() {
+    fetchTestimonial();
+    super.onInit();
   }
 }

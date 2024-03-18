@@ -1,3 +1,4 @@
+import 'package:algostocks/model/model_performance.dart';
 import 'package:algostocks/views/screens/screen_performance2.dart';
 import 'package:algostocks/widget/widget_dash_container.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,9 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
 
   @override
   Widget build(BuildContext context) {
-    final PerformanceController performanceController = Get.put(PerformanceController());
+    PerformanceController performanceController = Get.put(
+        PerformanceController());
+    performanceController.fetchPerformanceData();
 
     return Scaffold(
       backgroundColor: Color(0xFF170044),
@@ -39,9 +42,9 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
         title: Text(
           'Performance',
           style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
+              fontSize: 26,
+              fontWeight: FontWeight.w700,
+              color: Colors.white
           ),
         ),
       ),
@@ -53,6 +56,7 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
               Container(
                 padding: EdgeInsets.all(4),
                 width: Get.width,
+                height: Get.height * 0.53,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 0.5),
                     borderRadius: BorderRadius.circular(25),
@@ -78,9 +82,9 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
                       fontWeight: FontWeight.w700,
                     ),
                     leftChevronIcon:
-                        Icon(Icons.chevron_left, color: Colors.white),
+                    Icon(Icons.chevron_left, color: Colors.white),
                     rightChevronIcon:
-                        Icon(Icons.chevron_right, color: Colors.white),
+                    Icon(Icons.chevron_right, color: Colors.white),
                   ),
                   calendarStyle: CalendarStyle(
                     selectedDecoration: BoxDecoration(
@@ -162,48 +166,102 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
                   ],
                 ),
               ),
-        // Obx(() {
-        //   return WidgetDashContainer(
-        //     texts: [
-        //       performanceController.ticker.value,
-        //       '\$${performanceController.price.value.toStringAsFixed(2)}',
-        //       performanceController.signal.value,
-        //       'Target: \$${performanceController.target.value.toStringAsFixed(2)}'
-        //     ],
-        //     color: Colors.blueGrey,
-        //   ).marginOnly(top: 5);
-        // },),
+              Obx(() {
+                return (performanceController.performanceData.isEmpty)?CircularProgressIndicator():ListView.builder(
+                  itemCount: performanceController.performanceData.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    PerformanceData performanceData = performanceController.performanceData[index];
+                    return WidgetDashContainer(
+                      texts: [
+                        "${performanceData.ticker}",
+                        "\$${performanceData.price}",
+                        "${performanceData.signal}",
+                        "${performanceData.target}"
+                      ],
+                      color: Colors.blueGrey,
+                    );
+                  },);
+              }),
+              // // Obx(() {
+              // //   return WidgetDashContainer(
+              // //     texts: [
+              // //       performanceController.ticker.value,
+              // //       '\$${performanceController.price.value.toStringAsFixed(2)}',
+              // //       performanceController.signal.value,
+              // //       'Target: \$${performanceController.target.value.toStringAsFixed(2)}'
+              // //     ],
+              // //     color: Colors.blueGrey,
+              // //   ).marginOnly(top: 5);
+              // // },),
+              //
+              //
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // Obx(() {
+              //   return WidgetDashContainer(
+              //     texts: [
+              //       "${performanceController.ticker.value}",
+              //       "\$${performanceController.price.value}",
+              //       "${performanceController.signal.value}",
+              //       "${performanceController.target.value}"
+              //     ],
+              //     color: Colors.blueGrey,
+              //   );
+              // }),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
 
-
-              WidgetDashContainer(
-                texts: ["${performanceController.ticker}", "\$${performanceController.price}", "${performanceController.signal}", "${performanceController.target}"],
-                color: Colors.blueGrey,
-              ),
-              WidgetDashContainer(
-                texts: ["${performanceController.ticker}", "\$${performanceController.price}", "${performanceController.signal}", "${performanceController.target}"],
-                color: Colors.blueGrey,
-              ),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh"],
-                color: Colors.blueGrey,
-              ),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh"],
-                color: Colors.blueGrey,
-              ),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh"],
-                color: Colors.blueGrey,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    performanceController.fetchPerformanceData();
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios_new_sharp,
-                    size: 20,
-                    color: Colors.black26,
-                  ))
+              // ElevatedButton(
+              //     onPressed: () {
+              //       performanceController.fetchPerformanceData();
+              //     },
+              //     child: Icon(
+              //       Icons.arrow_back_ios_new_sharp,
+              //       size: 20,
+              //       color: Colors.black26,
+              //     ))
             ],
           ),
         ).marginSymmetric(horizontal: 15, vertical: 15),
