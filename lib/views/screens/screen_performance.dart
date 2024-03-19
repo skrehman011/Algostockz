@@ -56,7 +56,7 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
               Container(
                 padding: EdgeInsets.all(4),
                 width: Get.width,
-                height: Get.height * 0.53,
+                // height: Get.height * 0.53,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 0.5),
                     borderRadius: BorderRadius.circular(25),
@@ -113,7 +113,7 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
                   ),
                 ),
                 child: Text(
-                  "Predictions for June 06, 2023",
+                  "Predictions for ${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}",
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18,

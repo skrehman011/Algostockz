@@ -1,70 +1,39 @@
-import 'dart:convert';
-
 class ModelTestimonial {
-  int id;
-  String name;
-  String message;
+  final int id;
+  final String name;
+  final String email;
+  final String message;
+  final bool approved;
+  final DateTime date;
 
-  static List<ModelTestimonial> value = [];
-
-//<editor-fold desc="Data Methods">
   ModelTestimonial({
     required this.id,
     required this.name,
+    required this.email,
     required this.message,
+    required this.approved,
+    required this.date,
   });
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is ModelTestimonial &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          name == other.name &&
-          message == other.message);
-
-  @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ message.hashCode;
-
-  @override
-  String toString() {
-    return 'ModelTestimonial{' +
-        ' id: $id,' +
-        ' name: $name,' +
-        ' message: $message,' +
-        '}';
-  }
-
-  ModelTestimonial copyWith({
-    int? id,
-    String? name,
-    String? message,
-  }) {
+  factory ModelTestimonial.fromJson(Map<String, dynamic> json) {
     return ModelTestimonial(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      message: message ?? this.message,
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      message: json['message'] ?? '',
+      approved: json['approved'] ?? false,
+      date: json['date'] != null ? DateTime.parse(json['date']) : DateTime.now(),
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'name': this.name,
-      'message': this.message,
+      'id': id,
+      'name': name,
+      'email': email,
+      'message': message,
+      'approved': approved,
+      'date': date.toIso8601String(),
     };
   }
-
-  factory ModelTestimonial.fromMap(Map<String, dynamic> map) {
-    return ModelTestimonial(
-      id: map['id'] as int,
-      name: map['name'] as String,
-      message: map['message'] as String,
-    );
-  }
-
-  static fromJson( ) {}
-
-//</editor-fold>
 }
-

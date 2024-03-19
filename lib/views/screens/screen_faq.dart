@@ -1,3 +1,4 @@
+import 'package:algostocks/controller/predication_controller.dart';
 import 'package:algostocks/widget/custom_text_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,8 @@ import '../../controller/faqs_controller.dart';
 import 'faq_feedback.dart';
 
 class ScreenFaq extends StatelessWidget {
-   FaqsController faqsController = Get.put(FaqsController());
+
+  PredictionController controller = Get.put(PredictionController());
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +100,7 @@ class ScreenFaq extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  faqsController.fetchFAQs();
+                  controller.fetchPredictionData();
                 },
                 child: Text("Submit Feedback"),
               ),
