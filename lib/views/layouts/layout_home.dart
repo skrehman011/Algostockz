@@ -44,18 +44,16 @@ class LayoutHome extends StatelessWidget {
             SizedBox(height: 40),
             Padding(
               padding: EdgeInsets.only(left: 20),
-              child: Obx(() {
-                return Text(
-                  'Welcome ${userController.userAccounts.first!.email.isNotEmpty ? userController.userAccounts.first!.email : "Guest"}',
-                  style: GoogleFonts.josefinSans(
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+              child: Text(
+                'Welcome Junaid!',
+                style: GoogleFonts.josefinSans(
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                );
-              }),
+                ),
+              )
             ),
             SizedBox(height: 30),
             Padding(
