@@ -23,13 +23,13 @@ class _ScreenPollState extends State<ScreenPoll> {
 
   @override
   Widget build(BuildContext context) {
-    PredictionController predictionController=Get.put(PredictionController());
+    PredictionController predictionController = Get.put(PredictionController());
     predictionController.fetchPredictionData();
     return Scaffold(
-        backgroundColor: Color(0xFF170044),
+      backgroundColor: Color(0xFF170044),
       appBar: AppBar(
         centerTitle: true,
-          backgroundColor: Color(0xFF170044),
+        backgroundColor: Color(0xFF170044),
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -40,7 +40,7 @@ class _ScreenPollState extends State<ScreenPoll> {
             size: 25,
           ),
         ),
-        title: Text('Polls',style: TextStyle(
+        title: Text('Polls', style: TextStyle(
           fontSize: 26,
           fontWeight: FontWeight.w700,
           color: Colors.white,
@@ -119,93 +119,97 @@ class _ScreenPollState extends State<ScreenPoll> {
               ),
             ),
             SizedBox( // Wrap the ListView.builder with SizedBox to limit its height
-              height: MediaQuery.of(context).size.height * 0.5, // Set a desired height, adjust as needed
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: predictionController.predictionData.length,
-                itemBuilder: (BuildContext context, int index) {
-                  ModelPrediction prediction = predictionController.predictionData[index];
-                  return Container(
-                    width: 364,
-                    height: 50,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF453369),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Stack(
-                      textDirection: TextDirection.ltr,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              prediction.ticker, // "Ticker" text
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.5, // Set a desired height, adjust as needed
+              child: Obx(() {
+                return (predictionController.predictionData.isNotEmpty)?ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: predictionController.predictionData.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    ModelPrediction prediction = predictionController
+                        .predictionData[index];
+                    return Container(
+                      width: 364,
+                      height: 50,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF453369),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Stack(
+                        textDirection: TextDirection.ltr,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                prediction.ticker, // "Ticker" text
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                prediction.price.toString(), // "Price" text
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                prediction.signal,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: DropdownButton<String>(
+                                  value: selectedValue,
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedValue = newValue!;
+                                      print('Selected Value: $selectedValue');
+                                    });
+                                  },
+                                  items: dropdownValues.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Positioned( // Positioned widget to display selected value below "Ticker"
+                            left: 0,
+                            bottom: 11,
+                            child: Text(
+                              selectedValue, // Display selected dropdown value
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
-                                color: Colors.white,
+                                color: Colors.green, // Set the color to green
                               ),
-                            ),
-                            Text(
-                              prediction.price.toString(), // "Price" text
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              prediction.signal,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: DropdownButton<String>(
-                                value: selectedValue,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedValue = newValue!;
-                                    print('Selected Value: $selectedValue');
-                                  });
-                                },
-                                items: dropdownValues.map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Positioned( // Positioned widget to display selected value below "Ticker"
-                          left: 0,
-                          bottom: 11,
-                          child: Text(
-                            selectedValue, // Display selected dropdown value
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.green, // Set the color to green
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ).marginSymmetric(vertical: 5);
-                },
-              ),
-
-
+                        ],
+                      ),
+                    ).marginSymmetric(vertical: 5);
+                  },
+                ):CircularProgressIndicator();
+              }),
 
 
             ),
