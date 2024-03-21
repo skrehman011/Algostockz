@@ -1,5 +1,7 @@
+import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:algostocks/controller/user_controller.dart';
 import 'package:algostocks/views/screens/screen_dashboard.dart';
 import 'package:algostocks/views/screens/screen_disclaimer.dart';
 import 'package:algostocks/views/screens/screen_faq.dart';
@@ -21,11 +23,11 @@ import '../screens/screen_referrol.dart';
 
 
 class LayoutHome extends StatelessWidget {
-  const LayoutHome({Key? key}) : super(key: key);
+  UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
-    return  SingleChildScrollView(
+    return SingleChildScrollView(
       child: Container(
         color: Color(0xFF170044),
         child: Column(
@@ -42,16 +44,18 @@ class LayoutHome extends StatelessWidget {
             SizedBox(height: 40),
             Padding(
               padding: EdgeInsets.only(left: 20),
-              child: Text(
-                'Welcome Junaid!',
-                style: GoogleFonts.josefinSans(
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              child: Obx(() {
+                return Text(
+                  'Welcome ${userController.userAccounts.first!.email.isNotEmpty ? userController.userAccounts.first!.email : "Guest"}',
+                  style: GoogleFonts.josefinSans(
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ),
             SizedBox(height: 30),
             Padding(
@@ -61,12 +65,12 @@ class LayoutHome extends StatelessWidget {
                 children: [
                   _buildItemWithIconAndText("Dashboard", 'DashBoard', () {
                     Get.to(ScreenDashboard());
-                  },context),
+                  }, context),
                   SizedBox(width: 20),
                   _buildItemWithIconAndText(
                       "Dashboard", 'Performance', () {
                     Get.to(ScreenPerformance());
-                  },context),
+                  }, context),
                 ],
               ),
             ),
@@ -81,11 +85,11 @@ class LayoutHome extends StatelessWidget {
                   _buildItemWithIconAndText(
                       "Pricing", 'Pricing', () {
                     Get.to(ScreenPricing());
-                  },context),
+                  }, context),
                   SizedBox(width: 20),
                   _buildItemWithIconAndText("ref", 'Referrals', () {
                     Get.to(ScreenReferral());
-                  },context),
+                  }, context),
                 ],
               ),
             ),
@@ -100,12 +104,12 @@ class LayoutHome extends StatelessWidget {
                   _buildItemWithIconAndText(
                       "FAQs", 'FAQs', () {
                     Get.to(ScreenFaq());
-                  },context),
+                  }, context),
                   SizedBox(width: 20),
                   _buildItemWithIconAndText(
                       "Feedback", 'Feedback', () {
-                    Get.to( ScreenTips());
-                  },context),
+                    Get.to(ScreenTips());
+                  }, context),
                 ],
               ),
             ),
@@ -119,12 +123,12 @@ class LayoutHome extends StatelessWidget {
                 children: [
                   _buildItemWithIconAndText("Settings", 'Setting', () {
                     Get.to(ScreenSetting());
-                  },context),
+                  }, context),
                   SizedBox(width: 20),
                   _buildItemWithIconAndText(
                       "Polls", 'Polls', () {
                     Get.to(ScreenPoll());
-                  },context),
+                  }, context),
                 ],
               ),
             ),
@@ -132,23 +136,28 @@ class LayoutHome extends StatelessWidget {
         ),
       ),
     );
-
   }
 
-  Widget _buildItemWithIconAndText(
-      String icon,  String text, VoidCallback ontap,context) {
+  Widget _buildItemWithIconAndText(String icon, String text, VoidCallback ontap,
+      context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GestureDetector(
         onTap: ontap,
         child: Container(
-          width: (MediaQuery.of(context).size.width - 60) / 2,
+          width: (MediaQuery
+              .of(context)
+              .size
+              .width - 60) / 2,
           height: 130,
           color: Colors.white.withOpacity(0.2),
           child: Stack(
             children: [
               Container(
-                width: (MediaQuery.of(context).size.width - 60) / 2,
+                width: (MediaQuery
+                    .of(context)
+                    .size
+                    .width - 60) / 2,
                 height: 130,
               ),
               Positioned.fill(
@@ -156,7 +165,7 @@ class LayoutHome extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     SvgPicture.asset("assets/icons/$icon.svg"),
+                      SvgPicture.asset("assets/icons/$icon.svg"),
                       SizedBox(height: 8),
                       Text(
                         text,

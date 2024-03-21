@@ -1,3 +1,4 @@
+import 'package:algostocks/controller/user_controller.dart';
 import 'package:algostocks/views/layouts/layout_disclaimer.dart';
 import 'package:algostocks/views/layouts/layout_home.dart';
 import 'package:algostocks/views/layouts/layout_profile.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ScreenHomePage extends StatelessWidget {
+  UserController userController=Get.put(UserController());
+
   List<Widget> layouts = [
     LayoutHome(),
     LayoutDisclaimer(),
@@ -15,6 +18,7 @@ class ScreenHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    userController.fetchUserAccounts();
     return Scaffold(
       body: Obx(() {
         return layouts[selectedIndex.value];

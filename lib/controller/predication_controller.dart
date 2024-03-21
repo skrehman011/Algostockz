@@ -17,6 +17,7 @@ class PredictionController extends GetxController {
 
     try {
       final response = await http.get(url);
+      log("Prediction ${response.body.toString()}");
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = jsonDecode(response.body);
         List<ModelPrediction> dataList = jsonData.map((data) => ModelPrediction.fromJson(data)).toList();

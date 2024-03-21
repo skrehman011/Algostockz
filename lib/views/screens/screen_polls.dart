@@ -1,3 +1,5 @@
+import 'package:algostocks/controller/predication_controller.dart';
+import 'package:algostocks/model/model_prediction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,6 +23,8 @@ class _ScreenPollState extends State<ScreenPoll> {
 
   @override
   Widget build(BuildContext context) {
+    PredictionController predictionController=Get.put(PredictionController());
+    predictionController.fetchPredictionData();
     return Scaffold(
         backgroundColor: Color(0xFF170044),
       appBar: AppBar(
@@ -119,8 +123,9 @@ class _ScreenPollState extends State<ScreenPoll> {
               child: ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 10,
+                itemCount: predictionController.predictionData.length,
                 itemBuilder: (BuildContext context, int index) {
+                  ModelPrediction prediction = predictionController.predictionData[index];
                   return Container(
                     width: 364,
                     height: 50,
@@ -136,7 +141,7 @@ class _ScreenPollState extends State<ScreenPoll> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Ticker", // "Ticker" text
+                              prediction.ticker, // "Ticker" text
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
@@ -144,7 +149,7 @@ class _ScreenPollState extends State<ScreenPoll> {
                               ),
                             ),
                             Text(
-                              "Price",
+                              prediction.price.toString(), // "Price" text
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
@@ -152,7 +157,7 @@ class _ScreenPollState extends State<ScreenPoll> {
                               ),
                             ),
                             Text(
-                              "Signal",
+                              prediction.signal,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
