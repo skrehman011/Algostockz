@@ -208,7 +208,9 @@ class _ScreenPollState extends State<ScreenPoll> {
                       ),
                     ).marginSymmetric(vertical: 5);
                   },
-                ):CircularProgressIndicator();
+                ):Center(child: SizedBox(
+                    height: 30,
+                    child: CircularProgressIndicator()));
               }),
 
 
