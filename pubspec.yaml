@@ -59,6 +59,8 @@ dependencies:
   ellipsis_overflow_text: ^1.0.1+1
   syncfusion_localizations: ^24.2.8
   flutter_screenutil: ^5.9.0
+  badges: ^2.0.1
+
 
 dev_dependencies:
   flutter_test:

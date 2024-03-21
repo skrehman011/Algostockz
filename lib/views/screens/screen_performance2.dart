@@ -1,7 +1,12 @@
+import 'package:algostocks/model/model_performance.dart';
+import 'package:algostocks/views/screens/screen_performance2.dart';
 import 'package:algostocks/widget/widget_dash_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../controller/performance_controller.dart';
 
 class ScreenPerformance2 extends StatefulWidget {
   @override
@@ -13,10 +18,12 @@ class _ScreenPerformance2State extends State<ScreenPerformance2> {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
-
-
   @override
   Widget build(BuildContext context) {
+    PerformanceController performanceController = Get.put(
+        PerformanceController());
+    performanceController.fetchPerformanceData();
+
     return Scaffold(
       backgroundColor: Color(0xFF170044),
       appBar: AppBar(
@@ -36,9 +43,9 @@ class _ScreenPerformance2State extends State<ScreenPerformance2> {
         title: Text(
           'Performance2',
           style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.w700,
+              color: Colors.white
           ),
         ),
       ),
@@ -50,12 +57,11 @@ class _ScreenPerformance2State extends State<ScreenPerformance2> {
               Container(
                 padding: EdgeInsets.all(4),
                 width: Get.width,
+                // height: Get.height * 0.53,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 0.5),
                     borderRadius: BorderRadius.circular(25),
-                    color: Colors.blueGrey.withOpacity(0.5),
-
-                ),
+                    color: Colors.blueGrey.withOpacity(0.5)),
                 child: TableCalendar(
                   calendarFormat: _calendarFormat,
                   focusedDay: _focusedDay,
@@ -108,7 +114,7 @@ class _ScreenPerformance2State extends State<ScreenPerformance2> {
                   ),
                 ),
                 child: Text(
-                  "Predictions for June 06, 2023",
+                  "Predictions for ${_selectedDay.day}/${_selectedDay.month}/${_selectedDay.year}",
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18,
@@ -161,30 +167,145 @@ class _ScreenPerformance2State extends State<ScreenPerformance2> {
                   ],
                 ),
               ),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh" ],
-                color: Colors.blueGrey,
-              ).marginOnly(top: 5),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh" ],
-                color: Colors.blueGrey,
-              ),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh" ],
-                color: Colors.blueGrey,
-              ),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh" ],
-                color: Colors.blueGrey,
-              ),
-              WidgetDashContainer(
-                texts: ["WMT", "\$150.6", "tre", "hgsh" ],
-                color: Colors.blueGrey,
-              ),
+              Obx(() {
+                return (performanceController.performanceData.isEmpty)?CircularProgressIndicator():ListView.builder(
+                  itemCount: performanceController.performanceData.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    PerformanceData performanceData = performanceController.performanceData[index];
+                    return WidgetDashContainer(
+                      texts: [
+                        "${performanceData.ticker}",
+                        "\$${performanceData.price}",
+                        "${performanceData.signal}",
+                        "${performanceData.target}"
+                      ],
+                      color: Colors.blueGrey,
+                    );
+                  },);
+              }),
+              // // Obx(() {
+              // //   return WidgetDashContainer(
+              // //     texts: [
+              // //       performanceController.ticker.value,
+              // //       '\$${performanceController.price.value.toStringAsFixed(2)}',
+              // //       performanceController.signal.value,
+              // //       'Target: \$${performanceController.target.value.toStringAsFixed(2)}'
+              // //     ],
+              // //     color: Colors.blueGrey,
+              // //   ).marginOnly(top: 5);
+              // // },),
+              //
+              //
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // Obx(() {
+              //   return WidgetDashContainer(
+              //     texts: [
+              //       "${performanceController.ticker.value}",
+              //       "\$${performanceController.price.value}",
+              //       "${performanceController.signal.value}",
+              //       "${performanceController.target.value}"
+              //     ],
+              //     color: Colors.blueGrey,
+              //   );
+              // }),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+              // WidgetDashContainer(
+              //   texts: [
+              //     "${performanceController.ticker}",
+              //     "\$${performanceController.price}",
+              //     "${performanceController.signal}",
+              //     "${performanceController.target}"
+              //   ],
+              //   color: Colors.blueGrey,
+              // ),
+
+              // ElevatedButton(
+              //     onPressed: () {
+              //       performanceController.fetchPerformanceData();
+              //     },
+              //     child: Icon(
+              //       Icons.arrow_back_ios_new_sharp,
+              //       size: 20,
+              //       color: Colors.black26,
+              //     ))
             ],
           ),
         ).marginSymmetric(horizontal: 15, vertical: 15),
       ),
+      floatingActionButtonLocation: CustomFloatingActionButtonLocation(),
+      floatingActionButton: Container(
+        height: 25.sp,
+        width: 25.sp,
+        child: FloatingActionButton(
+          backgroundColor: Color(0xFFF0BFFB7),
+          // shape: CircleBorder(),
+
+          onPressed: () {
+            Get.back();
+
+            // Add your action here
+            // For example, navigate to another screen
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => ScreenPerformance3()),
+            // );
+          },
+          child: Icon(Icons.arrow_back_ios_rounded), // You can change the icon as needed
+          // backgroundColor: Colors.blue, // Customize the button color if needed
+        ),
+      ),
     );
   }
+
+
+
 }
+
+class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
+    final double fabX = scaffoldGeometry.scaffoldSize.width / 15;
+    final double fabY = scaffoldGeometry.scaffoldSize.height / 1.22;
+    return Offset(fabX, fabY);
+  }
+
+  @override
+  String toString() => 'CustomFloatingActionButtonLocation';
+}
+
+

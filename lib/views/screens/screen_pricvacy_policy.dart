@@ -29,9 +29,9 @@ class ScreenPrivacyPolicy extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.white70),
+            border: Border.all(width: 1, color: Color(0xFFFA299B4)),
             borderRadius: BorderRadius.circular(10),
-            color: Colors.blueGrey.withOpacity(0.5),
+            color: Color(0xFFF453369),
           ),
           child: Text(
             "YOU MUST READ AND AGREE. IF YOU DO NOT AGREE, \n "

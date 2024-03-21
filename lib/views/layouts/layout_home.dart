@@ -17,6 +17,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../screens/screen_referrol.dart';
+
 
 class LayoutHome extends StatelessWidget {
   const LayoutHome({Key? key}) : super(key: key);
@@ -57,7 +59,7 @@ class LayoutHome extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildItemWithIconAndText("performance", 'DashBoard', () {
+                  _buildItemWithIconAndText("Dashboard", 'DashBoard', () {
                     Get.to(ScreenDashboard());
                   },context),
                   SizedBox(width: 20),
@@ -82,7 +84,7 @@ class LayoutHome extends StatelessWidget {
                   },context),
                   SizedBox(width: 20),
                   _buildItemWithIconAndText("ref", 'Referrals', () {
-                    Get.to(ScreenTestimonial());
+                    Get.to(ScreenReferral());
                   },context),
                 ],
               ),

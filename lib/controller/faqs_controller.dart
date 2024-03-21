@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import '../model/model_faqs.dart';
+
 class FaqsController extends GetxController {
-  List<dynamic> faqs = [];
+  List<FaqModel> faqs = [];
 
   Future<void> fetchFAQs() async {
     try {
@@ -12,10 +15,9 @@ class FaqsController extends GetxController {
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
-        // Assuming your API returns a list of FAQs
         if (jsonData is List) {
-          faqs = jsonData;
-          // Notify listeners that the data has changed
+          faqs = jsonData.map((item) => FaqModel.fromJson(item)).toList();
+          log(jsonData.toString());
           update();
         } else {
           print('API response is not a list');

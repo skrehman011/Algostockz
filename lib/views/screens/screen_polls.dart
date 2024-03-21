@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -14,8 +15,8 @@ class ScreenPoll extends StatefulWidget {
 
 class _ScreenPollState extends State<ScreenPoll> {
 
-  String selectedValue = 'Option 1';
-  List<String> dropdownValues = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
+  String selectedValue = ' 1';
+  List<String> dropdownValues = [' 1', ' 2', ' 3', ' 4', ' 5'];
 
 
   @override
@@ -104,7 +105,7 @@ class _ScreenPollState extends State<ScreenPoll> {
                         color: Colors.white),
                   ),
                   Text(
-                    "Target",
+                    "Ranking",
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -113,294 +114,100 @@ class _ScreenPollState extends State<ScreenPoll> {
                 ],
               ),
             ),
-            Container(
-              // width: 270,
-              // height: 25,
-              width: Get.width,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Ticker",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Price",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Signal",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Container(
+            SizedBox( // Wrap the ListView.builder with SizedBox to limit its height
+              height: MediaQuery.of(context).size.height * 0.5, // Set a desired height, adjust as needed
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    width: 364,
+                    height: 50,
+                    padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)
+                      color: Color(0xFFF453369),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: DropdownButton<String>(
-                      value: selectedValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedValue = newValue!;
-                          print('Selected Value: $selectedValue');
-                        });
-                      },
-                      items: dropdownValues.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                    child: Stack(
+                      textDirection: TextDirection.ltr,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Ticker", // "Ticker" text
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              "Price",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              "Signal",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: DropdownButton<String>(
+                                value: selectedValue,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedValue = newValue!;
+                                    print('Selected Value: $selectedValue');
+                                  });
+                                },
+                                items: dropdownValues.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned( // Positioned widget to display selected value below "Ticker"
+                          left: 0,
+                          bottom: 11,
+                          child: Text(
+                            selectedValue, // Display selected dropdown value
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Colors.green, // Set the color to green
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                  ).marginSymmetric(vertical: 5);
+                },
               ),
-            ).marginSymmetric(vertical: 10),
-            Container(
-              // width: 270,
-              // height: 25,
-              width: Get.width,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Ticker",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Price",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Signal",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: DropdownButton<String>(
-                      value: selectedValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedValue = newValue!;
-                          print('Selected Value: $selectedValue');
-                        });
-                      },
-                      items: dropdownValues.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // width: 270,
-              // height: 25,
-              width: Get.width,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Ticker",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Price",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Signal",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: DropdownButton<String>(
-                      value: selectedValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedValue = newValue!;
-                          print('Selected Value: $selectedValue');
-                        });
-                      },
-                      items: dropdownValues.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-            ).marginSymmetric(vertical: 10),
-            Container(
-              // width: 270,
-              // height: 25,
-              width: Get.width,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Ticker",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Price",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Signal",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: DropdownButton<String>(
-                      value: selectedValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedValue = newValue!;
-                          print('Selected Value: $selectedValue');
-                        });
-                      },
-                      items: dropdownValues.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // width: 270,
-              // height: 25,
-              width: Get.width,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Ticker",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Price",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    "Signal",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: DropdownButton<String>(
-                      value: selectedValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedValue = newValue!;
-                          print('Selected Value: $selectedValue');
-                        });
-                      },
-                      items: dropdownValues.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
+
+
+
+
             ),
           ],
         ).marginSymmetric(horizontal: 15, vertical: 10),
       ),
+
     );
   }
 }

@@ -54,7 +54,7 @@ class LayoutProfile extends StatelessWidget {
                 // height: Get.height,
                 // width: Get.width,
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey.withOpacity(0.5),
+                  color: Color(0xFFF453369),
                   // border: Border.all(color: Colors.white, width: 1),
                   borderRadius: BorderRadius.circular(10),
                 ),

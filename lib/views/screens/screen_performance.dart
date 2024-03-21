@@ -2,6 +2,7 @@ import 'package:algostocks/model/model_performance.dart';
 import 'package:algostocks/views/screens/screen_performance2.dart';
 import 'package:algostocks/widget/widget_dash_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -266,6 +267,43 @@ class _ScreenPerformanceState extends State<ScreenPerformance> {
           ),
         ).marginSymmetric(horizontal: 15, vertical: 15),
       ),
+      floatingActionButtonLocation: CustomFloatingActionButtonLocation(),
+      floatingActionButton: Container(
+        height: 25.sp,
+        width: 25.sp,
+        child: FloatingActionButton(
+          backgroundColor: Color(0xFFF0BFFB7),
+          shape: CircleBorder(),
+
+          onPressed: () {
+            // Add your action here
+            // For example, navigate to another screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ScreenPerformance2()),
+            );
+          },
+          child: Icon(Icons.arrow_forward_ios_outlined), // You can change the icon as needed
+          // backgroundColor: Colors.blue, // Customize the button color if needed
+        ),
+      ),
     );
   }
+
+
+
 }
+
+class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
+    final double fabX = scaffoldGeometry.scaffoldSize.width / 1.11;
+    final double fabY = scaffoldGeometry.scaffoldSize.height / 1.22;
+    return Offset(fabX, fabY);
+  }
+
+  @override
+  String toString() => 'CustomFloatingActionButtonLocation';
+}
+
+

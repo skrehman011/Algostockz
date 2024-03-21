@@ -10,10 +10,19 @@ class ScreenTips extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color(0xFF170044),
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            }, icon: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 25,),
+          ),
           backgroundColor: Color(0xFF170044),
           centerTitle: true,
           elevation: 0,
-          title: Text("Tips"),
+          title: Text(
+            "Tips",
+            style: TextStyle(
+                fontSize: 26, fontWeight: FontWeight.w700, color: Colors.white),
+          ),
         ),
         body: ListView.builder(
             itemCount: 5,
@@ -23,18 +32,21 @@ class ScreenTips extends StatelessWidget {
                 width: Get.width,
                 decoration: BoxDecoration(
                   // color: Colors.grey,
-                   color: Colors.blueGrey.withOpacity(0.5),
+                  color: Color(0xFFF453369),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        "I've been using this stocks alert app for a while now, and it has completely changed the way I manage my investments. The real-time alerts keep me updated on market movements, and the app's intuitive interface makes it easy to navigate and track my favorite stocks. Highly recommended!",
-                       style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.white),
+                      "I've been using this stocks alert app for a while now, and it has completely changed the way I manage my investments. The real-time alerts keep me updated on market movements, and the app's intuitive interface makes it easy to navigate and track my favorite stocks. Highly recommended!",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white),
                     ),
 
-                // Align(
+                    // Align(
                     //     alignment: Alignment.bottomRight,
                     //     child: Text('Suresh', style: TextStyle(
                     //       fontWeight: FontWeight.bold,

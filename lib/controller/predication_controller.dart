@@ -6,6 +6,10 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../model/model_prediction.dart';
 
 class PredictionController extends GetxController {
+  RxString ticker = ''.obs;
+  RxDouble price = 0.0.obs;
+  RxString signal = ''.obs;
+  RxDouble target = 0.0.obs ;
   RxList<ModelPrediction> predictionData = <ModelPrediction>[].obs;
 
   Future<void> fetchPredictionData() async {
@@ -18,6 +22,7 @@ class PredictionController extends GetxController {
         List<ModelPrediction> dataList = jsonData.map((data) => ModelPrediction.fromJson(data)).toList();
         predictionData.assignAll(dataList);
         log(jsonData.toString());
+        update();
       } else {
         throw Exception('Failed to load predictions data: ${response.statusCode}');
       }

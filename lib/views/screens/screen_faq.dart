@@ -9,7 +9,7 @@ import 'faq_feedback.dart';
 
 class ScreenFaq extends StatelessWidget {
 
-  PredictionController controller = Get.put(PredictionController());
+  FaqsController  controller = Get.put(FaqsController());
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class ScreenFaq extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.fetchPredictionData();
+                  controller.fetchFAQs();
                 },
                 child: Text("Submit Feedback"),
               ),

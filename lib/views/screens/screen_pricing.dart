@@ -78,7 +78,7 @@ class ScreenPricing extends StatelessWidget {
               children: [
                 Container(
                   height: Get.height * 0.35,
-                  width: Get.width * 0.45,
+                  width: Get.width * 0.44,
                   decoration: BoxDecoration(
                     color: Colors.blueGrey.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(12),
@@ -156,7 +156,7 @@ class ScreenPricing extends StatelessWidget {
                 ),
                 Container(
                   height: Get.height * 0.35,
-                  width: Get.width * 0.45,
+                  width: Get.width * 0.43,
                   decoration: BoxDecoration(
                     color: Colors.blueGrey.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(12),
