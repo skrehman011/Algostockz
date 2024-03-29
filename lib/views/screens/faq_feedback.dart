@@ -4,6 +4,7 @@ import 'package:algostocks/views/screens/verification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../firebase_options.dart';
 import 'home_screen.dart';
@@ -17,8 +18,8 @@ class MenuPopUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
-      height: 160,
+      width: 160,
+      height: 180,
       decoration: BoxDecoration(
         color: Colors.blue,
         borderRadius: BorderRadius.circular(20),
@@ -358,7 +359,7 @@ class ShortBlueColorBar extends StatelessWidget {
               }),
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 10),
           GestureDetector(
             onTap: () {
               // Add your Copy Link operation here
@@ -376,7 +377,7 @@ class ShortBlueColorBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(width: 20),
+                    SizedBox(width: 10),
                     Text(
                       'Copy Link',
                       style: GoogleFonts.josefinSans(
@@ -399,7 +400,7 @@ class ShortBlueColorBar extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           GestureDetector(
             onTap: () {
               // Add your Copy Link operation here
@@ -417,7 +418,7 @@ class ShortBlueColorBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(width: 20),
+                    SizedBox(width: 10),
                     Text(
                       'Copy iCloud Link',
                       style: GoogleFonts.josefinSans(
@@ -621,7 +622,7 @@ class _FaqFeedbackState extends State<FaqFeedback> {
                     left: (screenWidth - placeholderWidth) / 2, // Centering the green rectangle horizontally
                     child: Container(
                       width: placeholderWidth,
-                      height: 380, // Height of the green rectangle
+                      height: 420, // Height of the green rectangle
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(124, 65, 251, 0.2),
                         borderRadius: BorderRadius.only(
@@ -741,8 +742,8 @@ class _FaqFeedbackState extends State<FaqFeedback> {
                                     hintStyle: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         color: Colors.black.withOpacity(0.5),
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     border: InputBorder.none,
@@ -785,7 +786,7 @@ class _FaqFeedbackState extends State<FaqFeedback> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              ).marginOnly(top: 20),
                             ),
                           ),
                         ],
@@ -794,16 +795,7 @@ class _FaqFeedbackState extends State<FaqFeedback> {
                   ),
 
                   // "Do not have an account?" Text
-                  Text("Need Help?",
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
 
-                  ),
                   Positioned(
                     bottom: textBottomMargin,
                     left: 0,

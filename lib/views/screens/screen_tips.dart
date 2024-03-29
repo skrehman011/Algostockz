@@ -31,6 +31,10 @@ class ScreenTips extends StatelessWidget {
                 padding: EdgeInsets.all(10),
                 width: Get.width,
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: Color(0xFFFA299B4),
+                  ),
                   // color: Colors.grey,
                   color: Color(0xFFF453369),
                   borderRadius: BorderRadius.circular(5),

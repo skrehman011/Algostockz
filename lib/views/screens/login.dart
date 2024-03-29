@@ -359,7 +359,7 @@ class ShortBlueColorBar extends StatelessWidget {
               }),
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 10),
           GestureDetector(
             onTap: () {
               // Add your Copy Link operation here
@@ -400,7 +400,7 @@ class ShortBlueColorBar extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           GestureDetector(
             onTap: () {
               // Add your Copy Link operation here

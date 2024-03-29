@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:algostocks/controller/user_controller.dart';
+import 'package:algostocks/views/screens/screen_referrol.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -158,6 +159,7 @@ class LayoutProfile extends StatelessWidget {
               width: Get.width * 0.80,
               child: ElevatedButton(
                   onPressed: () {
+                    Get.to(ScreenReferral());
                     userController.fetchUserAccounts().then((_) {
                       // Print the response after fetching user accounts
                       print(userController.userAccounts);

@@ -83,7 +83,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 ),
               ),
               Positioned(
-                top: screenHeight * 0.54,
+                top: screenHeight * 0.59,
                 left: 0,
                 right: 0,
                 child: Container(

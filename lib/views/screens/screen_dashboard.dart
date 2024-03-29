@@ -2,6 +2,7 @@ import 'package:algostocks/model/model_performance.dart';
 import 'package:algostocks/views/screens/screen_performance2.dart';
 import 'package:algostocks/widget/widget_dash_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -19,8 +20,8 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    PerformanceController performanceController = Get.put(
-        PerformanceController());
+    PerformanceController performanceController =
+        Get.put(PerformanceController());
     performanceController.fetchPerformanceData();
 
     return Scaffold(
@@ -42,10 +43,7 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
         title: Text(
           'Dashboard',
           style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w700,
-              color: Colors.white
-          ),
+              fontSize: 26, fontWeight: FontWeight.w700, color: Colors.white),
         ),
       ),
       body: SingleChildScrollView(
@@ -60,46 +58,53 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 0.5),
                     borderRadius: BorderRadius.circular(25),
-                    color: Colors.blueGrey.withOpacity(0.5)),
-                child: TableCalendar(
-                  calendarFormat: _calendarFormat,
-                  focusedDay: _focusedDay,
-                  firstDay: DateTime.utc(2000),
-                  lastDay: DateTime.utc(2040),
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _focusedDay = focusedDay;
-                      _selectedDay = selectedDay;
-                    });
-                  },
-                  headerStyle: HeaderStyle(
-                    titleTextStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                    color:  Color(0xFF453369)),
+                child: Theme(data: ThemeData(
+                  datePickerTheme: DatePickerThemeData(
+                    backgroundColor: Color(0xFF453369),
+                    weekdayStyle: TextStyle(
+                      color: Color(0xFF0BFFB7),
                       fontWeight: FontWeight.w700,
+                      fontSize: 16
                     ),
-                    leftChevronIcon:
-                    Icon(Icons.chevron_left, color: Colors.white),
-                    rightChevronIcon:
-                    Icon(Icons.chevron_right, color: Colors.white),
+                    dayStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16
+                    ),
+                    headerHelpStyle: TextStyle(
+                      color: Colors.white
+                    ),
+                    headerHeadlineStyle: TextStyle(
+                      color: Colors.white,
+
+                    ),
+                    yearStyle: TextStyle(
+                      color: Colors.white
+                    )
                   ),
-                  calendarStyle: CalendarStyle(
-                    selectedDecoration: BoxDecoration(
-                      color: Colors.greenAccent,
-                      // Set the color for the selected date
-                      shape: BoxShape.circle,
-                    ),
-                    todayDecoration: BoxDecoration(
-                      color: Colors.transparent,
-                      // shape: BoxShape.circle,
-                      // border: Border.all(
-                      //     color: Colors.white), // Border for today's date
-                    ),
-                    // markersVisible: true, // Show markers
+
+                  backgroundColor: Color(0xFF453369),
+                  primaryColor: Colors.blue, // Color of the selected date
+                ),
+                  child: Container(
+                    height: 281.h,
+                    width: 310.w,
+                    child: CalendarDatePicker(
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2025),
+                    onDateChanged: (value) {
+                      setState(() {
+                        _selectedDay = value;
+                      });
+                    },
+
+
+
+                                    ),
                   ),
+
                 ),
               ).marginSymmetric(vertical: 20),
               Container(
@@ -167,21 +172,25 @@ class _ScreenDashboardState extends State<ScreenDashboard> {
                 ),
               ),
               Obx(() {
-                return (performanceController.performanceData.isEmpty)?CircularProgressIndicator():ListView.builder(
-                  itemCount: performanceController.performanceData.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    PerformanceData performanceData = performanceController.performanceData[index];
-                    return WidgetDashContainer(
-                      texts: [
-                        "${performanceData.ticker}",
-                        "\$${performanceData.price}",
-                        "${performanceData.signal}",
-                        "${performanceData.target}"
-                      ],
-                      color: Colors.blueGrey,
-                    );
-                  },);
+                return (performanceController.performanceData.isEmpty)
+                    ? CircularProgressIndicator()
+                    : ListView.builder(
+                        itemCount: performanceController.performanceData.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          PerformanceData performanceData =
+                              performanceController.performanceData[index];
+                          return WidgetDashContainer(
+                            texts: [
+                              "${performanceData.ticker}",
+                              "\$${performanceData.price}",
+                              "${performanceData.signal}",
+                              "${performanceData.target}"
+                            ],
+                            color: Colors.blueGrey,
+                          );
+                        },
+                      );
               }),
               // // Obx(() {
               // //   return WidgetDashContainer(

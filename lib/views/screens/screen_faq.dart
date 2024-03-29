@@ -45,7 +45,7 @@ class ScreenFaq extends StatelessWidget {
                     onTap: () {
                       Get.to(FaqFeedback());
                     },
-                    child: CustomTextContainer(
+                    child: CustomContainerText(
                       texts: [
                         faq.question,
                         faq.answer

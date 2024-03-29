@@ -3,6 +3,7 @@ import 'package:algostocks/model/model_prediction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -50,9 +51,15 @@ class _ScreenPollState extends State<ScreenPoll> {
         child: Column(
           children: [
             Container(
-              height: 400,
+              height: 281.h,
+              width: 310.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Color(0xFFFA299B4)),
+              ),
               child: LabelAction(),
             ),
+            SizedBox(height: 20,),
             // Center(child: Image.asset('assets/images/poll.png')).marginSymmetric(vertical: 15),
             Container(
               width: 350,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class CustomContainerText extends StatelessWidget {
+class CustomWorksText extends StatelessWidget {
 
   List<String> texts;
   Color? textColor;
@@ -10,18 +10,18 @@ class CustomContainerText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Color(0xFFA89FB9)
-        ),
-        color: Color(0xFF453369),
+    // return Container(
+    //   width: Get.width,
+    //   padding: EdgeInsets.all(10),
+    //   decoration: BoxDecoration(
+    //     border: Border.all(
+    //         color: Color(0xFFA89FB9)
+    //     ),
+    //     color: Colors.blueGrey.withOpacity(0.5),
     //     color: color ?? Color(0xFF7D41FB),
-        borderRadius: BorderRadius.circular(5),
-    ),
-      child: Column(
+    //     borderRadius: BorderRadius.circular(5),
+      // ),
+      return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -41,10 +41,9 @@ class CustomContainerText extends StatelessWidget {
           ).marginOnly(top: 10),
 
         ],
-      ).paddingAll(10),
-    ).marginSymmetric(vertical: 15,horizontal: 15);
+      ).paddingAll(10).marginSymmetric(vertical: 15,horizontal: 15);
   }
-  CustomContainerText({
+  CustomWorksText({
     required this.texts,
     this.textColor,
     this.color,
