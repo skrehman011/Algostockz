@@ -46,6 +46,10 @@ class ScreenTestimonial extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.blueGrey.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: 1,
+                          color: Color(0xFFFA299B4),
+                        )
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

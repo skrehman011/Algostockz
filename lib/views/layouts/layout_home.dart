@@ -296,7 +296,7 @@ class PopUpState extends State<PopUp> with SingleTickerProviderStateMixin {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Icon(Icons.arrow_back, color: Colors.white),
+                  child:Image.asset('assets/images/Vector.png'),
                 ),
               ),
             ),
