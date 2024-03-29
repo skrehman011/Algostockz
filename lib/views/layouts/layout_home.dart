@@ -16,13 +16,17 @@ import 'package:algostocks/views/screens/screen_testimonials.dart';
 import 'package:algostocks/views/screens/screen_tips.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../screens/faq_feedback.dart';
+import '../screens/screen_pricvacy_policy.dart';
 import '../screens/screen_referrol.dart';
+import '../screens/screen_terms_condition.dart';
+import 'layout_disclaimer.dart';
 import 'layout_legal.dart';
 
 
@@ -167,8 +171,9 @@ class LayoutHome extends StatelessWidget {
                         _buildItemWithIconAndText("legal", 'Legal', () {
                           showDialog(
                             context: context,
+                            barrierColor: Colors.transparent,
                             builder: (BuildContext context) {
-                              return LegalPopup(); // Show the legal popup
+                              return PopUp(); // Show the legal popup
                             },
                           );
                         }, context),
@@ -232,3 +237,150 @@ class LayoutHome extends StatelessWidget {
   );
   }
 }
+
+
+
+
+class PopUp extends StatefulWidget {
+  @override
+  PopUpState createState() => PopUpState();
+}
+
+class PopUpState extends State<PopUp> with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<Offset> slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+
+    slideAnimation = Tween<Offset>(
+      begin: Offset(1.0, 0.0),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.elasticOut, // Use an elastic curve for bounce effect
+      ),
+    );
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SlideTransition(
+      position: slideAnimation,
+      child: AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 20.h),
+            Container(
+              width: 52.w,
+              height: 52.h,
+              decoration: BoxDecoration(
+                color: Color(0xFFDCC54F),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Icon(Icons.arrow_back, color: Colors.white),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Container(
+              width: 153.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                color: Color(0xFF2FFF5D),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(LayoutDisclaimer());
+                  // Handle disclaimer button press
+                },
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                ),
+                child: Text(
+                  'Disclaimer',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Container(
+              width: 217.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                color: Color(0xFF1D92FF),
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(ScreenPrivacyPolicy());
+                  // Handle privacy policy button press
+                },
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                ),
+                child: Text(
+                  'Privacy Policy',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Container(
+              width: 245.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Color(0xFFFF1D1D),
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(ScreenTermsCondition());
+                  // Handle terms and conditions button press
+                },
+                child: Text(
+                  'Terms and Conditions',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+}
+
+
