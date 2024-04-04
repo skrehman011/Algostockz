@@ -17,9 +17,16 @@ class ControllerLogin extends GetxController{
       loginLoading.value=true;
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) {
-        loginLoading.value=false;
-        response = "success";
+          .then((value) async {
+            if (value.user!.emailVerified) {
+              loginLoading.value=false;
+              response = "success";
+            }
+            else{
+              response=="Please Verify your email";
+              await FirebaseAuth.instance.signOut();
+            }
+
       }).catchError((error) {
         loginLoading.value=false;
 
