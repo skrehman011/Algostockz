@@ -55,6 +55,8 @@ class ControllerRegistration extends GetxController {
             .set(user.toMap())
             .then((value) async {
           response = "success";
+          await FirebaseAuth.instance.signOut();
+
           // await FirebaseAuth.instance.currentUser?.updateDisplayName(firstName);
           signUpLoading.value = false;
         }).catchError((error) {
