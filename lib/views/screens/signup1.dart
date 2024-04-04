@@ -1,5 +1,7 @@
+import 'package:algostocks/controller/controller_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login.dart';
 import 'signup2.dart';
@@ -10,35 +12,15 @@ class SignupScreen extends StatefulWidget {
   @override
   _SignupScreenState createState() => _SignupScreenState();
 }
-class MenuPopUp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      height: 160,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Center(
-        child: Text(
-          'Popup Content',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-}
+ControllerRegistration controllerRegistration = Get.put(ControllerRegistration());
+
+
 
 class _SignupScreenState extends State<SignupScreen> {
 
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  // TextEditingController phoneController = TextEditingController();
+  // TextEditingController firstNameController = TextEditingController();
+  // TextEditingController lastNameController = TextEditingController();
   bool isPopupOpen = false;
   double overlayOpacity = 0.0; // Add this variable
 
@@ -187,7 +169,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: phoneController,
+                                controller: controllerRegistration.phoneNumberController,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     color: Colors.black,
@@ -241,7 +223,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: firstNameController,
+                                controller: controllerRegistration.firstNameController,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     color: Colors.black,
@@ -294,7 +276,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: lastNameController,
+                                controller: controllerRegistration.lastNameController,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     color: Colors.black,
@@ -322,10 +304,18 @@ class _SignupScreenState extends State<SignupScreen> {
                         Center(
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => Signup2Screen()),
-                              );
+                              String phone=controllerRegistration.phoneNumberController.text;
+                              String firstName=controllerRegistration.firstNameController.text;
+                              String lastName=controllerRegistration.lastNameController.text;
+                             if (controllerRegistration.isValidPhoneNumber(phone)&&firstName.isNotEmpty&&lastName.isNotEmpty) {
+                               Navigator.push(
+                                 context,
+                                 MaterialPageRoute(builder: (context) => Signup2Screen()),
+                               );
+                             }
+                             else{
+ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Enter Valid Details")));
+                             }
                             },
                             child: Container(
                               width: 220, // Same width as the placeholders
@@ -528,6 +518,29 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),              ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+class MenuPopUp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 140,
+      height: 160,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Center(
+        child: Text(
+          'Popup Content',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

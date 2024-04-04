@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "644063955323",
-    "project_id": "algostockz-bce19",
-    "storage_bucket": "algostockz-bce19.appspot.com"
+    "project_number": "1033569865677",
+    "project_id": "algostoc-55eb7",
+    "storage_bucket": "algostoc-55eb7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:644063955323:android:99dc5be090bf03428395de",
+        "mobilesdk_app_id": "1:1033569865677:android:ae18eb380aec1aeddd3e84",
         "android_client_info": {
           "package_name": "com.example.algostocks"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "644063955323-5a0nptkctp8h3cc0v4v7tu5ge2ntq4mh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCDrlU7CMXml5HTfGJpcOx9rgvOyyimTqc"
+          "current_key": "AIzaSyDz6J6Ur-g-VwPexWSXGd3RelKNicYTHQw"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "644063955323-5a0nptkctp8h3cc0v4v7tu5ge2ntq4mh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

@@ -1,6 +1,8 @@
+import 'package:algostocks/views/screens/signup1.dart';
 import 'package:algostocks/views/screens/verification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login.dart';
 
@@ -8,35 +10,12 @@ class Signup2Screen extends StatefulWidget {
   @override
   _Signup2ScreenState createState() => _Signup2ScreenState();
 }
-class MenuPopUp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      height: 160,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Center(
-        child: Text(
-          'Popup Content',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _Signup2ScreenState extends State<Signup2Screen> {
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+  // TextEditingController confirmPasswordController = TextEditingController();
   bool isPopupOpen = false;
   double overlayOpacity = 0.0; // Add this variable
 
@@ -44,7 +23,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Prevent the keyboard from resizing the layout
+      resizeToAvoidBottomInset: false,
+      // Prevent the keyboard from resizing the layout
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -60,8 +40,10 @@ class _Signup2ScreenState extends State<Signup2Screen> {
             double spacingFromTop = 73;
             double spacingFromSide = 12;
             double logoSize = 155; // Size for the logo width
-            double logoTopMargin = 30 + spacingFromTop; // Margin from the top including spacingFromTop
-            double rectangleTopMargin = logoTopMargin + 70; // Positioning 70 pixels below the logo
+            double logoTopMargin = 30 +
+                spacingFromTop; // Margin from the top including spacingFromTop
+            double rectangleTopMargin = logoTopMargin +
+                70; // Positioning 70 pixels below the logo
             double textBottomMargin = 20; // Distance from bottom
             double placeholderWidth = 320;
 
@@ -75,7 +57,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                       Navigator.pop(context);
                     },
                     child: SvgPicture.asset(
-                      'assets/icons/back_button.svg', // Replace with the path to your back button SVG
+                      'assets/icons/back_button.svg',
+                      // Replace with the path to your back button SVG
                       width: backButtonSize,
                       height: backButtonSize,
                     ),
@@ -89,7 +72,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                       // Handle the tap on the menu button here
                     },
                     child: SvgPicture.asset(
-                      'assets/icons/menu_bar.svg', // Replace with the path to your menu bar SVG
+                      'assets/icons/menu_bar.svg',
+                      // Replace with the path to your menu bar SVG
                       width: menuBarSize,
                       height: menuBarSize,
                     ),
@@ -97,16 +81,19 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                 ),
                 Positioned(
                   top: logoTopMargin,
-                  left: (screenWidth - logoSize) / 2, // Center the logo horizontally
+                  left: (screenWidth - logoSize) / 2,
+                  // Center the logo horizontally
                   child: SvgPicture.asset(
-                    'assets/icons/logo.svg', // Replace with the path to your logo SVG
+                    'assets/icons/logo.svg',
+                    // Replace with the path to your logo SVG
                     width: logoSize,
                     height: 80.84,
                   ),
                 ),
                 Positioned(
                   top: rectangleTopMargin + 70,
-                  left: (screenWidth - placeholderWidth) / 2, // Centering the orange rectangle horizontally
+                  left: (screenWidth - placeholderWidth) / 2,
+                  // Centering the orange rectangle horizontally
                   child: Container(
                     width: placeholderWidth,
                     height: 50,
@@ -134,8 +121,10 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                   ),
                 ),
                 Positioned(
-                  top: rectangleTopMargin + 70 + 50, // Positioning right after the orange rectangle
-                  left: (screenWidth - placeholderWidth) / 2, // Centering the green rectangle horizontally
+                  top: rectangleTopMargin + 70 + 50,
+                  // Positioning right after the orange rectangle
+                  left: (screenWidth - placeholderWidth) / 2,
+                  // Centering the green rectangle horizontally
                   child: Container(
                     width: placeholderWidth,
                     height: 440, // Height of the green rectangle
@@ -185,7 +174,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: emailController,
+                                controller: controllerRegistration
+                                    .emailController,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                     color: Colors.black,
@@ -239,7 +229,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: passwordController,
+                                controller: controllerRegistration
+                                    .passwordController,
                                 obscureText: true,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
@@ -293,7 +284,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: TextField(
-                                controller: confirmPasswordController,
+                                controller: controllerRegistration
+                                    .confirmPasswordController,
                                 obscureText: true,
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
@@ -317,14 +309,27 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 40), // Add some spacing below the last placeholder
+                        SizedBox(height: 40),
+                        // Add some spacing below the last placeholder
                         Center(
                           child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => VerificationScreen()),
-                              );
+                            onTap: () async {
+                              var response = await controllerRegistration
+                                  .userRegister();
+                              if (response == "success") {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(
+                                        "Please Verify Your Email Check your Inbox then login")));
+                                Get.offAll(LoginScreen());
+                              }
+                              else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(response)));
+                              }
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => VerificationScreen()),
+                              // );
                             },
                             child: Container(
                               width: 220, // Same width as the placeholders
@@ -334,16 +339,18 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               child: Center(
-                                child: Text(
-                                  'Confirm',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                child: Obx(() {
+                                  return (controllerRegistration.signUpLoading.value)?CircularProgressIndicator():Text(
+                                    'Confirm',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                }),
                               ),
                             ),
                           ),
@@ -375,7 +382,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LoginScreen()), // Replace LoginScreen() with your actual LoginScreen widget
+                            MaterialPageRoute(builder: (context) =>
+                                LoginScreen()), // Replace LoginScreen() with your actual LoginScreen widget
                           );
                         },
                         child: Text(
@@ -403,7 +411,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                         });
                       },
                       child: Container(
-                        color: Colors.black.withOpacity(0.7), // Semi-transparent overlay
+                        color: Colors.black.withOpacity(
+                            0.7), // Semi-transparent overlay
                       ),
                     ),
                   ),
@@ -422,7 +431,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        // Center vertically
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           InkWell(
@@ -431,7 +441,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             },
                             child: Center(
                               child: Container(
-                                padding: EdgeInsets.only(top: 5), // Adjusted padding
+                                padding: EdgeInsets.only(top: 5),
+                                // Adjusted padding
                                 child: Text(
                                   'Share',
                                   style: GoogleFonts.josefinSans(
@@ -457,7 +468,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             },
                             child: Center(
                               child: Container(
-                                padding: EdgeInsets.only(top: 5), // Adjusted padding
+                                padding: EdgeInsets.only(top: 5),
+                                // Adjusted padding
                                 child: Text(
                                   'Setting',
                                   style: GoogleFonts.josefinSans(
@@ -483,7 +495,8 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                             },
                             child: Center(
                               child: Container(
-                                padding: EdgeInsets.only(top: 5), // Adjusted padding
+                                padding: EdgeInsets.only(top: 5),
+                                // Adjusted padding
                                 child: Text(
                                   'Contact Us',
                                   style: GoogleFonts.josefinSans(
@@ -523,9 +536,34 @@ class _Signup2ScreenState extends State<Signup2Screen> {
                         height: menuBarSize,
                       ),
                     ),
-                  ),              ],
+                  ),
+              ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class MenuPopUp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 140,
+      height: 160,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Center(
+        child: Text(
+          'Popup Content',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

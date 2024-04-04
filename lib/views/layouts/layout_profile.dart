@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:algostocks/controller/controller_home.dart';
 import 'package:algostocks/controller/user_controller.dart';
 import 'package:algostocks/views/screens/screen_referrol.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,12 @@ import 'package:get/get.dart';
 class LayoutProfile extends StatelessWidget {
 
 
-  final UserController userController = Get.put(UserController());
+  // final UserController userController = Get.put(UserController());
+  final ControllerHome controllerHome = Get.put(ControllerHome());
 
   @override
   Widget build(BuildContext context) {
-    log(userController.userAccounts.first.email.toString());
+    // log(userController.userAccounts.first.email.toString());
     // CheckApiController controller=Get.put(CheckApiController());
     return Scaffold(
         appBar: AppBar(
@@ -40,8 +42,8 @@ class LayoutProfile extends StatelessWidget {
             Center(
               child: Obx(() {
                 return Text(
-                  " ${userController.userAccounts.first!.email.isNotEmpty
-                      ? userController.userAccounts.first!.email
+                  " ${controllerHome.user.value!=null?
+                       controllerHome.user.value!.firstName+" "+controllerHome.user.value!.lastName
                       : "Guest"}",
                   style: TextStyle(
                       fontSize: 15,
@@ -160,13 +162,13 @@ class LayoutProfile extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {
                     Get.to(ScreenReferral());
-                    userController.fetchUserAccounts().then((_) {
-                      // Print the response after fetching user accounts
-                      print(userController.userAccounts);
-                    }).catchError((error) {
-                      // Handle error if any
-                      print('Error fetching user accounts: $error');
-                    });
+                    // userController.fetchUserAccounts().then((_) {
+                    //   Print the response after fetching user accounts
+                      // print(userController.userAccounts);
+                    // }).catchError((error) {
+                    //   Handle error if any
+                      // print('Error fetching user accounts: $error');
+                    // });
                     // controller.fetchTestimonial(
                     //
                     //

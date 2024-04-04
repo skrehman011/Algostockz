@@ -1,4 +1,5 @@
 import 'package:algostocks/views/layouts/layout_disclaimer.dart';
+import 'package:algostocks/views/screens/login.dart';
 import 'package:algostocks/views/screens/screen_disclaimer.dart';
 import 'package:algostocks/views/screens/screen_faq.dart';
 import 'package:algostocks/views/screens/screen_page_view.dart';
@@ -7,6 +8,7 @@ import 'package:algostocks/views/screens/screen_ranking.dart';
 import 'package:algostocks/views/screens/screen_referrol.dart';
 import 'package:algostocks/views/screens/screen_terms_condition.dart';
 import 'package:algostocks/views/screens/screen_testimonials.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -263,9 +265,11 @@ void _showLogoutDialog(BuildContext context) {
                 ),
                 // SizedBox(width: 16), // Add spacing between buttons if needed
                 GestureDetector(
-                  onTap: () {
-                    // Perform logout logic here
-                    Navigator.of(context).pop(); // Close the dialog
+                  onTap: () async {
+                   await FirebaseAuth.instance.signOut().then((value) {
+                      Get.offAll(LoginScreen());
+                    });
+                    // Navigator.of(context).pop(); // Close the dialog
                   },
                   child: Container(
                     height: 54.h,

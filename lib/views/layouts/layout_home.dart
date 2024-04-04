@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:algostocks/controller/controller_home.dart';
 import 'package:algostocks/controller/user_controller.dart';
 import 'package:algostocks/views/screens/screen_dashboard.dart';
 import 'package:algostocks/views/screens/screen_disclaimer.dart';
@@ -32,6 +33,7 @@ import 'layout_legal.dart';
 
 class LayoutHome extends StatelessWidget {
   UserController userController = Get.put(UserController());
+  ControllerHome controllerHome = Get.put(ControllerHome());
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +53,18 @@ class LayoutHome extends StatelessWidget {
           SizedBox(height: 40),
           Padding(
               padding: EdgeInsets.only(left: 20),
-              child: Text(
-                'Welcome Junaid!',
-                style: GoogleFonts.josefinSans(
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              child: Obx(() {
+                return Text(
+                  'Welcome ${controllerHome.user.value==null?"No User":controllerHome.user.value!.firstName}',
+                  style: GoogleFonts.josefinSans(
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              )
+                );
+              })
           ),
           SizedBox(height: 30),
           Expanded(
@@ -190,55 +194,54 @@ class LayoutHome extends StatelessWidget {
   }
 
   Widget _buildItemWithIconAndText(String icon, String text, VoidCallback ontap,
-  context) {
-  return ClipRRect(
-  borderRadius: BorderRadius.circular(10),
-  child: GestureDetector(
-  onTap: ontap,
-  child: Container(
-  width: (MediaQuery
-      .of(context)
-      .size
-      .width - 60) / 2,
-  height: 130,
-  color: Colors.white.withOpacity(0.2),
-  child: Stack(
-  children: [
-  Container(
-  width: (MediaQuery
-      .of(context)
-      .size
-      .width - 60) / 2,
-  height: 130,
-  ),
-  Positioned.fill(
-  child: Center(
-  child: Column(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-  Image.asset("assets/images/$icon.png",height: 40,width: 40,),
-  // SvgPicture.asset("assets/icons/$icon.svg"),
-  SizedBox(height: 8),
-  Text(
-  text,
-  style: TextStyle(
-  color: Colors.white,
-  fontWeight: FontWeight.bold,
-  ),
-  ),
-  ],
-  ),
-  ),
-  ),
-  ],
-  ),
-  ),
-  ),
-  );
+      context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: GestureDetector(
+        onTap: ontap,
+        child: Container(
+          width: (MediaQuery
+              .of(context)
+              .size
+              .width - 60) / 2,
+          height: 130,
+          color: Colors.white.withOpacity(0.2),
+          child: Stack(
+            children: [
+              Container(
+                width: (MediaQuery
+                    .of(context)
+                    .size
+                    .width - 60) / 2,
+                height: 130,
+              ),
+              Positioned.fill(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/$icon.png", height: 40, width: 40,),
+                      // SvgPicture.asset("assets/icons/$icon.svg"),
+                      SizedBox(height: 8),
+                      Text(
+                        text,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
-
-
 
 
 class PopUp extends StatefulWidget {
@@ -296,7 +299,7 @@ class PopUpState extends State<PopUp> with SingleTickerProviderStateMixin {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child:Image.asset('assets/images/Vector.png'),
+                  child: Image.asset('assets/images/Vector.png'),
                 ),
               ),
             ),

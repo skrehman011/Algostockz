@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,41 +49,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDa30QsTi2uxg5LMPHZX-V4NTRi86UU_3Y',
-    appId: '1:644063955323:web:4f34c612ae1c4e468395de',
-    messagingSenderId: '644063955323',
-    projectId: 'algostockz-bce19',
-    authDomain: 'algostockz-bce19.firebaseapp.com',
-    storageBucket: 'algostockz-bce19.appspot.com',
-    measurementId: 'G-ENYVD2V5Y2',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCDrlU7CMXml5HTfGJpcOx9rgvOyyimTqc',
-    appId: '1:644063955323:android:99dc5be090bf03428395de',
-    messagingSenderId: '644063955323',
-    projectId: 'algostockz-bce19',
-    storageBucket: 'algostockz-bce19.appspot.com',
+    apiKey: 'AIzaSyDz6J6Ur-g-VwPexWSXGd3RelKNicYTHQw',
+    appId: '1:1033569865677:android:ae18eb380aec1aeddd3e84',
+    messagingSenderId: '1033569865677',
+    projectId: 'algostoc-55eb7',
+    storageBucket: 'algostoc-55eb7.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC4i1xbm56A5n35mM8swSJqfdPvc5UkGTQ',
-    appId: '1:644063955323:ios:e78788b373d4e1ee8395de',
-    messagingSenderId: '644063955323',
-    projectId: 'algostockz-bce19',
-    storageBucket: 'algostockz-bce19.appspot.com',
-    iosClientId: '644063955323-qijai1497fecafka63q9nnv393kr6h63.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDXzvaDU7JM4wi1sUSHZhIMs0oCly9iaYo',
+    appId: '1:1033569865677:ios:b672e515f129436cdd3e84',
+    messagingSenderId: '1033569865677',
+    projectId: 'algostoc-55eb7',
+    storageBucket: 'algostoc-55eb7.appspot.com',
     iosBundleId: 'com.example.algostocks',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC4i1xbm56A5n35mM8swSJqfdPvc5UkGTQ',
-    appId: '1:644063955323:ios:24e74d692a2a2f3e8395de',
-    messagingSenderId: '644063955323',
-    projectId: 'algostockz-bce19',
-    storageBucket: 'algostockz-bce19.appspot.com',
-    iosClientId: '644063955323-h2klcvsiqlempo0ve2844koim7a3fno8.apps.googleusercontent.com',
-    iosBundleId: 'com.example.algostocks.RunnerTests',
   );
 }

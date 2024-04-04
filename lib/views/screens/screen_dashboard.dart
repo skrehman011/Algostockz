@@ -1,3 +1,4 @@
+import 'package:algostocks/controller/controller_home.dart';
 import 'package:algostocks/model/model_performance.dart';
 import 'package:algostocks/views/screens/screen_performance2.dart';
 import 'package:algostocks/widget/widget_dash_container.dart';
@@ -14,6 +15,7 @@ class ScreenDashboard extends StatefulWidget {
 }
 
 class _ScreenDashboardState extends State<ScreenDashboard> {
+  ControllerHome controllerHome =Get.put(ControllerHome());
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();

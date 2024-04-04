@@ -1,3 +1,4 @@
+import 'package:algostocks/controller/controller_home.dart';
 import 'package:algostocks/controller/user_controller.dart';
 import 'package:algostocks/views/layouts/layout_disclaimer.dart';
 import 'package:algostocks/views/layouts/layout_home.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ScreenHomePage extends StatelessWidget {
+  ControllerHome controllerHome=Get.put(ControllerHome());
   UserController userController=Get.put(UserController());
 
   List<Widget> layouts = [
